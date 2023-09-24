@@ -1,0 +1,1003 @@
+\documentclass[11pt, a3paper, openany]{article}
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb,graphicx,color,graphicx,slashed, microtype, parskip, enumitem, extarrows, needspace}
+\usepackage[top=1.5cm, bottom=1.5cm, right=6cm, left=1.5cm, heightrounded, marginparwidth=5cm, marginparsep=0.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+% \usepackage{mathpazo}
+\usepackage{amsfonts}
+\usepackage{amsmath,amscd}
+\usepackage{geometry}
+\usepackage{mathrsfs}
+\usepackage{lmodern}
+\usepackage{cite}
+\usepackage{changepage}
+
+\geometry{
+	% paper=a4paper,
+	% top=3cm,
+	% inner=2.54cm,
+	% outer=2.54cm,
+	% bottom=3cm,
+	% headheight=5ex,
+	% headsep=5ex,
+}
+% \usepackage[margin=1.5in]{geometry}
+\hbadness = 10000
+\hfuzz=100pt 
+\usepackage{marginnote}
+\renewcommand*{\marginfont}{\footnotesize}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, urlcolor=NavyBlue, bookmarksdepth=3}
+\makeatletter\newcommand{\@minipagerestore}{\setlength{\parskip}{\medskipamount}}\makeatother
+% =============== Index ===========================
+\usepackage[nonewpage]{imakeidx}
+\makeindex
+% =============== Color Definitions ===============
+\usepackage[svgnames]{xcolor}
+\colorlet{ColorTitle}{Black}
+\colorlet{ColorSectionName}{Black}
+\colorlet{ColorBoxFG}{Gray}
+\colorlet{ColorBoxText}{Black}
+\colorlet{ColorBoxBG}{White}
+\definecolor{browna}{RGB}{16, 17, 131}
+% \definecolor{brownb}{RGB}{16,0.69,0.65}
+\definecolor{bluea}{RGB}{53, 90, 142}
+\definecolor{mygray}{RGB}{175, 176, 178}
+\definecolor{mygreen}{RGB}{230, 230, 230}
+\definecolor{myblue}{RGB}{190, 192, 191}
+\definecolor{myGreen}{RGB}{68, 128, 130}
+\definecolor{myexamplebg}{RGB}{244,251,248}
+\definecolor{myexamplefr}{RGB}{166, 219, 214}
+\definecolor{myexampleti}{RGB}{69, 131, 134}
+% =============== Title Style ===============
+\usepackage{titling} % Allows custom title configuration
+\newcommand{\HorRule}{\color{ColorTitle}\rule{\linewidth}{1pt}} % Defines the gold horizontal rule around the title
+\pretitle{
+    \vspace{-50pt} % Move the entire title section up
+    \HorRule\vspace{9pt} % Horizontal rule before the title
+    \fontsize{27}{36}\usefont{OT1}{phv}{b}{n}\selectfont
+    \color{ColorTitle} % Text colour for the title and author(s)
+}
+\posttitle{\par\vskip 15pt} % Whitespace under the title
+\preauthor{\fontsize{17}{0}\usefont{OT1}{phv}{m}{n}\selectfont\color{ColorTitle}} % Anything that will appear before \author is printed
+\postauthor{\par\HorRule}
+\newcommand{\COURSENAME}{\textcolor{black}{Abstract Algebra 2023}}
+% \newcommand{\COURSENAME}{\href{http://phyw.people.ust.hk/teaching/PHYS2022-2015/}{\textcolor{black}{Algebra 2023}}}
+\newcommand{\HTG}{\textcolor{black}{H.T. Guo}}
+% \newcommand{\PHYS}{\href{https://lxy.njupt.edu.cn/}{\textcolor{black}{School of Electronic Engineering}}}
+\newcommand{\PHYS}{\href{https://lxy.njupt.edu.cn/}{\textcolor{black}{School of Science}}}
+\newcommand{\NJUPT}{\href{https://www.njupt.edu.cn/}{\textcolor{black}{NJUPT}}}
+\author{\COURSENAME, \HTG, \PHYS, \NJUPT}
+\date{}
+% =============== Section Name Style ===============
+\usepackage{titlesec}
+\titleformat{\section}
+    {\fontsize{15}{20}\usefont{OT1}{phv}{b}{n}\color{ColorSectionName}}
+    {\thesection}{1em}{}
+    %[{\vspace{0.2cm}\titlerule[0.8pt]}]
+\titleformat{\subsection}
+    {\fontsize{14}{20}\usefont{OT1}{phv}{m}{n}\color{ColorSectionName}}
+    {\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+    {\fontsize{12}{20}\usefont{OT1}{phv}{m}{n}\color{ColorSectionName}}
+    {}{0em}{}
+\setcounter{secnumdepth}{4}
+% =============== Box Style ===============
+\usepackage[most]{tcolorbox}
+\newtcolorbox{tbox}[1]{
+    colback=ColorBoxBG, colframe=ColorBoxFG, coltext=ColorBoxText,
+    sharp corners, enhanced, breakable, parbox=false,
+    before skip=1em, after skip=1em,
+    title={#1}, fonttitle=\usefont{OT1}{phv}{b}{n}, 
+    attach boxed title to top left={yshift=-0.1mm}, boxed title style={sharp corners, colback=ColorBoxFG, left=0.405cm},
+    rightrule=-1pt,toprule=-1pt, bottomrule=-1pt
+}
+\newtcolorbox{mtbox}[1]{
+    colback=ColorBoxBG, colframe=ColorBoxFG, coltext=ColorBoxText,
+    sharp corners, enhanced, breakable, parbox=false,
+    before skip=1em, after skip=1em,
+    title={#1}, fonttitle=\usefont{OT1}{phv}{b}{n},
+    attach boxed title to top left={yshift=-0.1mm}, boxed title style={sharp corners, colback=ColorBoxFG, left=0.15cm},
+    rightrule=-1pt,toprule=-1pt, bottomrule=-1pt, 
+    left=0.5em
+}
+
+% 定义 \mtextbox 命令
+% \newcommand{\mtextbox}[2]{
+%     \checkoddpage
+%     \ifoddpage
+%         % 对于奇数页，向右对齐（奇数页的外侧）
+%         \begin{tcolorbox}[title=#1, width=0.5\linewidth, before=\hfill, after=\hfill]
+%             #2
+%         \end{tcolorbox}
+%     \else
+%         % 对于偶数页，向左对齐（偶数页的内侧）
+%         \begin{tcolorbox}[title=#1, width=0.5\linewidth]
+%             #2
+%         \end{tcolorbox}
+%     \fi
+% }
+% =============== tikz has to be loaded after xcolor
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\newcommand*\enumlabel[1]{\tikz[baseline=(char.base)]{
+			\node[shape=rectangle,inner sep=2pt,fill=ColorBoxFG] (char) 
+			{\fontsize{7}{20}\usefont{OT1}{phv}{b}{n}{\textcolor{ColorBoxBG}{#1}}};}}
+% =============== Useful shortcuts ===============
+\newcommand\wref[1]{{\hypersetup{linkcolor=white}\ref{#1}}}  
+\newcommand{\textbox}[2]{
+    \begin{tbox}{#1}
+        #2
+    \end{tbox}
+}
+\newcommand{\mtextbox}[2]{\marginnote{
+    \begin{mtbox}{#1}
+        #2
+    \end{mtbox}}
+}
+\newcommand{\mnewline}{\vspace{0.5em}\newline}
+\newcommand{\titem}[1]{
+    \begin{itemize}[label=\color{ColorBoxFG}$\blacktriangleright$, leftmargin=0mm, labelsep=0.27cm, topsep=0.5em
+        %, itemsep=1ex
+        ]
+        #1
+    \end{itemize}
+}
+\newcommand{\mtitem}[1]{
+    \begin{itemize}[label={\color{ColorBoxFG}$\blacktriangleright$}, leftmargin=0mm, labelsep=1mm, topsep=0.5em
+        %, itemsep=1ex
+        ]
+        #1
+    \end{itemize}
+}
+\newcommand{\itembox}[3]{
+    \begin{tbox}{#1}
+        #2
+        \titem{#3}
+    \end{tbox}
+}
+\newcommand{\mitembox}[3]{
+    \marginnote{
+    \begin{mtbox}{#1}
+        #2
+        \mtitem{#3}
+	\end{mtbox}
+    }
+}
+\newcommand{\tenum}[1]{
+    \begin{enumerate}[label=\protect\enumlabel{\arabic*}, leftmargin=0mm, labelsep=0.265cm, topsep=0.5em
+        %, itemsep=1ex
+        ]
+        #1
+    \end{enumerate}
+}
+
+\newcommand{\enumbox}[3]{
+    \begin{tbox}{#1}
+        #2
+        \tenum{#3}
+    \end{tbox}
+}
+
+\newcommand{\twocol}[5]{
+    \begin{minipage}[t][][b]
+        {#1\textwidth}
+        #4        
+    \end{minipage}
+    \hspace{#2\textwidth}
+    \begin{minipage}[t][][b]
+        {#3\textwidth}
+        #5
+    \end{minipage}
+}
+
+\newcommand{\cg}[2]{
+    \begin{center}
+        \includegraphics[width=#1\textwidth]{#2}
+    \end{center}
+}
+\newcommand{\tbar}{
+    ~\newline
+    {\color{ColorBoxFG}
+    \hbox to 0.15\textwidth{\leaders\hbox to 5pt{\hss  \hss}\hfil} 
+    \hbox to 0.7\textwidth{\leaders\hbox to 5pt{\hss . \hss}\hfil}}
+    \mnewline
+}
+
+%----------------------------------------------------------------------------------------
+%	Basic Math Notation Definition
+%----------------------------------------------------------------------------------------
+% Some commands that I am used to.
+% Well-known algebraic structures
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\CC}{\ensuremath{\mathbb{C}}}
+\newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\A}{\ensuremath{\mathbb{A}}}
+
+
+% Algebra
+
+\newcommand{\gr}{\operatorname{gr}}
+\newcommand{\Ass}{\operatorname{Ass}}
+\newcommand{\topwedge}{\ensuremath{\bigwedge^{\mathrm{max}}}}
+\newcommand{\rank}{\operatorname{rk}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Isom}{\operatorname{Isom}}
+\newcommand{\Hm}{\operatorname{H}}  % Homology/cohomology
+\newcommand{\Tr}{\operatorname{Tr}}	% trace
+\newcommand{\Nm}{\operatorname{N}}	% norm
+\newcommand{\Ann}{\operatorname{Ann}}
+\newcommand{\Resprod}{\ensuremath{{\prod}'}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\ord}{\operatorname*{ord}}
+\newcommand{\trdeg}{\operatorname{tr.deg}}
+\newcommand{\Gras}{\ensuremath{\mathbf{G}}}	% Grassmannians
+\newcommand{\WittV}{\operatorname{W}}	% Witt vectors
+
+% Analysis
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\champ}[1]{\ensuremath{\frac{\partial}{\partial #1}}}
+\newcommand{\norme}[1]{\ensuremath{\| #1 \|}}
+\newcommand{\normeL}[2]{\ensuremath{\| #2 \|_{L^{#1}}}}
+\newcommand{\normeLs}[3]{\ensuremath{\| #3 \|_{L^{#1}, #2}}}
+
+% General things...
+\newcommand{\ceil}[1]{\ensuremath{\lceil #1 \rceil}}
+\newcommand{\lrangle}[1]{\ensuremath{\left\langle #1 \right\rangle}}
+\newcommand{\mes}{\operatorname{vol}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\pr}{\ensuremath{\mathbf{pr}}} % projection morphism
+
+% Categorical Terms (in my view)
+\newcommand{\Obj}{\operatorname{Ob}}	% Objects
+\newcommand{\Mor}{\operatorname{Mor}}	% Morphisms
+\newcommand{\cate}[1]{\ensuremath{\mathsf{#1}}}	% Font series for categories
+\newcommand{\dcate}[1]{\ensuremath{\text{-}\mathsf{#1}}}	% Categories with a pre-dash
+\newcommand{\cated}[1]{\ensuremath{\mathsf{#1}\text{-}}}	% Categories with a post-dash
+\newcommand{\identity}{\ensuremath{\mathrm{id}}}
+\newcommand{\prolim}{\ensuremath{\underleftarrow{\lim}}}
+\newcommand{\indlim}{\ensuremath{\underrightarrow{\lim}}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\iHom}{\ensuremath{\EuScript{H}\mathrm{om}}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\rightiso}{\ensuremath{\stackrel{\sim}{\rightarrow}}}
+\newcommand{\longrightiso}{\ensuremath{\stackrel{\sim}{\longrightarrow}}}
+\newcommand{\leftiso}{\ensuremath{\stackrel{\sim}{\leftarrow}}}
+\newcommand{\longleftiso}{\ensuremath{\stackrel{\sim}{\longleftarrow}}}
+\newcommand{\utimes}[1]{\ensuremath{\overset{#1}{\times}}}
+\newcommand{\dtimes}[1]{\ensuremath{\underset{#1}{\times}}}
+\newcommand{\dotimes}[1]{\ensuremath{\underset{#1}{\otimes}}}
+\newcommand{\dsqcup}[1]{\ensuremath{\underset{#1}{\sqcup}}}
+\newcommand{\munit}{\ensuremath{\mathbf{1}}} % unit in a monoidal category
+\newcommand{\Yinjlim}{\ensuremath{\text{\textquotedblleft}\varinjlim\text{\textquotedblright}}} % injective limit in the Yoneda category
+\newcommand{\Yprojlim}{\ensuremath{\text{\textquotedblleft}\varprojlim\text{\textquotedblright}}} % projective limit in the Yoneda category
+
+% Homological Algebra
+\newcommand{\Ker}{\operatorname{ker}}
+\newcommand{\Coker}{\operatorname{coker}}
+\newcommand{\Image}{\operatorname{im}}
+\newcommand{\Coim}{\operatorname{coim}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\Tor}{\operatorname{Tor}}
+\newcommand{\otimesL}{\ensuremath{\overset{\mathrm{L}}{\otimes}}}
+
+% Geometry
+\newcommand{\Der}{\operatorname{Der}}
+\newcommand{\Lie}{\operatorname{Lie}}
+\newcommand{\Ad}{\operatorname{Ad}}
+\newcommand{\ad}{\operatorname{ad}}
+\newcommand{\Frob}{\operatorname{Fr}}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\MaxSpec}{\operatorname{MaxSpec}}
+\newcommand{\PP}{\ensuremath{\mathbb{P}}}
+\newcommand{\mult}{\operatorname{mult}}
+\newcommand{\divisor}{\operatorname{div}}
+\newcommand{\Gm}{\ensuremath{\mathbb{G}_\mathrm{m}}}
+\newcommand{\Ga}{\ensuremath{\mathbb{G}_\mathrm{a}}}
+\newcommand{\Pic}{\operatorname{Pic}}
+\newcommand{\Supp}{\operatorname{Supp}}
+\newcommand{\Res}{\operatorname{Res}}
+
+% Groups
+\newcommand{\Gal}{\operatorname{Gal}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SO}{\operatorname{SO}}
+\newcommand{\Or}{\operatorname{O}}
+\newcommand{\GSpin}{\operatorname{GSpin}}
+\newcommand{\Spin}{\operatorname{Spin}}
+\newcommand{\UU}{\operatorname{U}}
+\newcommand{\SU}{\operatorname{SU}}
+\newcommand{\PGL}{\operatorname{PGL}}
+\newcommand{\PSL}{\operatorname{PSL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\Sp}{\operatorname{Sp}}
+\newcommand{\GSp}{\operatorname{GSp}}
+\newcommand{\PSp}{\operatorname{PSp}}
+\newcommand{\gl}{\ensuremath{\mathfrak{gl}}}
+\newcommand{\sli}{\ensuremath{\mathfrak{sl}}}
+\newcommand{\so}{\ensuremath{\mathfrak{so}}}
+\newcommand{\spin}{\ensuremath{\mathfrak{spin}}}
+\newcommand{\syp}{\ensuremath{\mathfrak{sp}}}
+\newcommand{\Ind}{\operatorname{Ind}}
+
+%----------------------------------------------------------------------------------------
+%	Arrow Definition
+%----------------------------------------------------------------------------------------
+% 以下用 tikz 定义可伸缩箭头, 不用 amsmath 和 extarrows 的版本以免 unicode-math 产生问题. 代码借自 Antal Spector-Zabusky
+% 重定义 \xrightarrow[below]{above}
+\makeatletter
+\newbox\xratbelow
+\newbox\xratabove
+\renewcommand{\xrightarrow}[2][]{%
+	\setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
+	\setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
+	\pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .6em}%
+	\mathrel{\tikz [->, baseline=-.75ex]
+		\draw (0,0) -- node[below=-2pt] {\box\xratbelow}
+		node[above] {\box\xratabove}
+		(\xratlen,0) ;}}
+% 重定义 \xlefttarrow[below]{above}
+\renewcommand{\xleftarrow}[2][]{%
+	\setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
+	\setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
+	\pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .6em}%
+	\mathrel{\tikz [<-, baseline=-.75ex]
+		\draw (0,0) -- node[below] {\box\xratbelow}
+		node[above] {\box\xratabove}
+		(\xratlen,0) ;}}
+% 重定义 \xleftrightarrow[below]{above}
+\renewcommand{\xleftrightarrow}[2][]{%
+	\setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
+	\setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
+	\pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .6em}%
+	\mathrel{\tikz [<->, baseline=-.75ex]
+		\draw (0,0) -- node[below] {\box\xratbelow}
+		node[above] {\box\xratabove}
+		(\xratlen,0) ;}}
+% 重定义 \xhookrightarrow[below]{above}, 使用 tikz-cd 的 hookrightarrow
+\renewcommand{\xhookrightarrow}[2][]{%
+	\setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
+	\setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
+	\pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .6em}%
+	\mathrel{\tikz [baseline=-.75ex]
+		\draw (0,0) edge[commutative diagrams/hookrightarrow] node[below] {\box\xratbelow}
+		node[above] {\box\xratabove}
+		(\xratlen,0) ;}}
+% 重定义 \xhooklefttarrow[below]{above}, 使用 tikz-cd 的 hookleftarrow
+\renewcommand{\xhookleftarrow}[2][]{%
+	\setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
+	\setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
+	\pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .6em}%
+	\mathrel{\tikz [baseline=-.75ex]
+		\draw (0,0) edge[commutative diagrams/hookleftarrow] node[below] {\box\xratbelow}
+		node[above] {\box\xratabove}
+		(\xratlen,0) ;}}
+
+% 重定义 \xmapsto[below]{above}, 使用 tikz-cd 的 mapsto
+\renewcommand{\xmapsto}[2][]{%
+	\setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
+	\setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
+	\pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .6em}%
+	\mathrel{\tikz [baseline=-.75ex]
+		\draw (0,0) edge[commutative diagrams/mapsto] node[below] {\box\xratbelow}
+		node[above] {\box\xratabove}
+		(\xratlen,0) ;}}
+
+% 定义 \xlongequal[below]{above}, 使用 tikz-cd 的等号
+\newcommand{\xlongequal}[2][]{%
+	\setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
+	\setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
+	\pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .6em}%
+	\mathrel{\tikz [baseline=-.75ex]
+		\draw (0,0) edge[commutative diagrams/equal] node[below] {\box\xratbelow}
+		node[above] {\box\xratabove}
+		(\xratlen,0) ;}}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	Definition
+%----------------------------------------------------------------------------------------
+\usepackage[theorems]{tcolorbox}
+\newtcbtheorem[number within=section]%
+{Definition} % \begin..
+{Definition} % Title
+{} % Style - default
+{def} % label prefix; cite as ``theo:yourlabel''
+
+%----------------------------------------------------------------------------------------
+%	Theorem version 1
+%----------------------------------------------------------------------------------------
+\usepackage[framemethod=TikZ]{mdframed}
+\newcounter{Thm}[section]
+\renewcommand{\theThm}{\arabic{section}.\arabic{Thm}}
+\newenvironment{Thm}[1][]{
+	\refstepcounter{Thm}
+	\mdfsetup{
+		frametitle={
+			\tikz[baseline=(current bounding box.east), outer sep=0pt]
+			\node[anchor=east,rectangle,fill=myblue]
+			{\strut Theorem~\theThm\ifstrempty{#1}{}{:~#1}};},
+		innertopmargin=10pt,linecolor=myblue,
+		linewidth=2pt,topline=true,
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+	\begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+%----------------------------------------------------------------------------------------
+%	Theorem version 2
+%----------------------------------------------------------------------------------------
+\newtcbtheorem[no counter]{theorem}{Theorem}{
+  enhanced,
+  sharp corners,
+  attach boxed title to top left={
+    yshifttext=-1mm
+  },
+  colback=white,
+  colframe=browna,
+  fonttitle=\bfseries,
+  boxed title style={
+    sharp corners,
+    size=small,
+    colback=browna,
+    colframe=browna,
+  } 
+}{thm}
+
+%----------------------------------------------------------------------------------------
+%	Remark
+%----------------------------------------------------------------------------------------
+\usepackage{amsthm}
+\theoremstyle{remark}
+\newtheorem{remark}[]{\bfseries Remark}          % <- This will work
+%----------------------------------------------------------------------------------------
+%	Lemma
+%----------------------------------------------------------------------------------------
+% \newtcbtheorem[no counter]{Lemma}{Lemma}{
+%   enhanced,
+%   sharp corners,
+%   attach boxed title to top left={
+%     yshifttext=-1mm
+%   },
+%   colback=white,
+%   colframe=myGreen,
+%   fonttitle=\bfseries,
+%   coltitle=white,
+%   boxed title style={
+%     sharp corners,
+%     size=small,
+%     colback=myGreen,
+%     colframe=myGreen,
+%   } 
+% }{lem}
+\newcounter{Lem}[section]
+\renewcommand{\theLem}{\arabic{section}.\arabic{Lem}}
+\newenvironment{Lem}[1][]{
+	\refstepcounter{Lem}
+	\mdfsetup{
+		frametitle={
+			\tikz[baseline=(current bounding box.east), outer sep=0pt]
+			\node[anchor=east,rectangle,fill=gray!25]
+			{\strut Lemma~\theLem\ifstrempty{#1}{}{:~#1}};},
+		innertopmargin=10pt,linecolor=gray!25,
+		linewidth=2pt,topline=true,
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+	\begin{mdframed}[]\relax
+}{\end{mdframed}}
+
+%----------------------------------------------------------------------------------------
+%	Corollary
+%----------------------------------------------------------------------------------------
+\newcounter{Cor}[section]
+\renewcommand{\theCor}{\arabic{section}.\arabic{Cor}}
+\newenvironment{Cor}[1][]{
+	\refstepcounter{Cor}
+	\mdfsetup{
+		frametitle={
+			\tikz[baseline=(current bounding box.east), outer sep=0pt]
+			\node[anchor=east,rectangle,fill=blue!20]
+			{\strut Corollary~\theCor\ifstrempty{#1}{}{:~#1}};},
+		innertopmargin=10pt,linecolor=blue!20,
+		linewidth=2pt,topline=true,
+		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+	}
+	\begin{mdframed}[]\relax
+}{\end{mdframed}}
+%----------------------------------------------------------------------------------------
+%	Example
+%----------------------------------------------------------------------------------------
+% \newtcbtheorem[no counter]{Example}{Example}{
+%   enhanced,
+%   sharp corners,
+%   attach boxed title to top left={
+%     yshifttext=-1mm
+%   },
+%   colback=white,
+%   colframe=mygray,
+%   fonttitle=\bfseries,
+%   coltitle=white,
+%   boxed title style={
+%     sharp corners,
+%     size=small,
+%     colback=mygray,
+%     colframe=mygray,
+%   } 
+% }{exa}
+
+\newtcbtheorem[number within=section]{Example}{Example}
+{
+	colback = myexamplebg,
+	breakable,
+	colframe = myexamplefr,
+	coltitle = myexampleti,
+	boxrule = 1pt,
+	sharp corners,
+	detach title,
+	before upper=\tcbtitle\par\smallskip,
+	fonttitle = \bfseries,
+	description font = \mdseries,
+	separator sign none,
+	description delimiters parenthesis,
+}
+{ex}
+
+%----------------------------------------------------------------------------------------
+%	Proposition
+%----------------------------------------------------------------------------------------
+\newtcbtheorem[no counter]{Proposition}{Proposition}{
+  enhanced,
+  sharp corners,
+  attach boxed title to top left={
+    yshifttext=-1mm
+  },
+  colback=white,
+  colframe=brownb,
+  fonttitle=\bfseries,
+  coltitle=white,
+  boxed title style={
+    sharp corners,
+    size=small,
+    colback=brownb,
+    colframe=brownb,
+  } 
+}{Prop}
+%----------------------------------------------------------------------------------------
+%	Hint
+%----------------------------------------------------------------------------------------
+\theoremstyle{remark}
+\newtheorem*{hint}{\bfseries Hint}
+%----------------------------------------------------------------------------------------
+%	Property
+%----------------------------------------------------------------------------------------
+% \tcbuselibrary{theorems, skins, hooks}
+% \newtcbtheorem[number within=section]{Property}{Property}
+% {%
+% 	enhanced,
+% 	breakable,
+% 	colback = mytheorembg,
+% 	frame hidden,
+% 	boxrule = 0sp,
+% 	borderline west = {2pt}{0pt}{mytheoremfr},
+% 	sharp corners,
+% 	detach title,
+% 	before upper = \tcbtitle\par\smallskip,
+% 	coltitle=black,
+% 	fonttitle = \bfseries,
+% 	description font = \mdseries,
+% 	separator sign none,
+% 	segmentation style={solid, mytheoremfr},
+% }
+% {th}
+
+% \tcbuselibrary{theorems, skins, hooks}
+% \newtcbtheorem[number within=chapter]{property}{Property}
+% {%
+% 	enhanced,
+% 	breakable,
+% 	colback = mytheorembg,
+% 	frame hidden,
+% 	boxrule = 0sp,
+% 	borderline west = {2pt}{0pt}{mytheoremfr},
+% 	sharp corners,
+% 	detach title,
+% 	before upper = \tcbtitle\par\smallskip,
+% 	coltitle = mytheoremfr,
+% 	fonttitle = \bfseries\sffamily,
+% 	description font = \mdseries,
+% 	separator sign none,
+% 	segmentation style={solid, mytheoremfr},
+% }
+% {th}
+
+
+\tcbuselibrary{theorems,skins,hooks}
+\newtcolorbox{Theoremcon}
+{%
+	enhanced
+	,breakable
+	,colback = mytheorembg
+	,frame hidden
+	,boxrule = 0sp
+	,borderline west = {2pt}{0pt}{mytheoremfr}
+	,sharp corners
+	,description font = \mdseries
+	,separator sign none
+}
+
+%----------------------------------------------------------------------------------------
+%	claim
+%----------------------------------------------------------------------------------------
+% \theoremstyle{remark}
+% \newtheorem{claim}{\bfseries Claim}
+\theoremstyle{remark}
+\newtheorem{claim}{\bfseries Claim}
+\newtheorem{newclaim}{\bfseries Claim}[section] % 新的定理环境
+
+%----------------------------------------------------------------------------------------
+%	Axiom
+%----------------------------------------------------------------------------------------
+\newtcbtheorem[no counter]{Axiom}{Axiom}{
+  enhanced,
+  sharp corners,
+  attach boxed title to top left={
+    yshifttext=-1mm
+  },
+  colback=white,
+  colframe=bluea,
+  fonttitle=\bfseries,
+  coltitle=white,
+  boxed title style={
+    sharp corners,
+    size=small,
+    colback=bluea,
+    colframe=bluea,
+  } 
+}{Axi}
+%----------------------------------------------------------------------------------------
+%	Note
+%----------------------------------------------------------------------------------------
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+
+\usetikzlibrary{arrows,calc,shadows.blur}
+\tcbuselibrary{skins}
+
+\newtcolorbox{note}[1][]{%
+    enhanced jigsaw,
+    colback=gray!20!white,%
+    colframe=gray!80!black,
+    size=small,
+    boxrule=1pt,
+    title=\textbf{Note:-},
+    halign title=flush center,
+    coltitle=black,
+    breakable,
+    drop shadow=black!50!white,
+    attach boxed title to top left={xshift=1cm,yshift=-\tcboxedtitleheight/2,yshifttext=-\tcboxedtitleheight/2},
+    minipage boxed title=1.5cm,
+    boxed title style={%
+        colback=white,
+        size=fbox,
+        boxrule=1pt,
+        boxsep=2pt,
+        underlay={%
+            \coordinate (dotA) at ($(interior.west) + (-0.5pt,0)$);
+            \coordinate (dotB) at ($(interior.east) + (0.5pt,0)$);
+            \begin{scope}
+                \clip (interior.north west) rectangle ([xshift=3ex]interior.east);
+                \filldraw [white, blur shadow={shadow opacity=60, shadow yshift=-.75ex}, rounded corners=2pt] (interior.north west) rectangle (interior.south east);
+            \end{scope}
+            \begin{scope}[gray!80!black]
+                \fill (dotA) circle (2pt);
+                \fill (dotB) circle (2pt);
+            \end{scope}
+        },
+    },
+    #1,
+}
+% ---------------------------------------------------------------------------------------
+%
+%---------------------------------------------------------------------------------------
+\usepackage{amsthm}
+\renewcommand{\proofname}{\normalfont \textbf{Proof}}
+% \renewcommand\qedsymbol{Q.E.D.}
+% \renewcommand\qedsymbol{$\blacksquare$}
+\newenvironment{Proof of claim}
+  {\begin{proof}[\normalfont \textbf{Proof of claim}]}
+  {\end{proof}}
+% =============== Filter unwanted warnings========================
+\usepackage{silence}
+\WarningsOff[tcolorbox]
+\hbadness=1000000
+
+\title{Lecture Notes Part 1: Set Theory and Category}
+
+% \date{\today}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\begin{thebibliography}{99}
+\bibitem{b1} G. O. Young, ``Synthetic structure of industrial plastics,'' in \emph{Plastics,} 2\textsuperscript{nd} ed., vol. 3, J. Peters, Ed. New York, NY, USA: McGraw-Hill, 1964, pp. 15--64.
+\bibitem{b2} W.-K. Chen, \emph{Linear Networks and Systems.} Belmont, CA, USA: Wadsworth, 1993, pp. 123--135.
+\bibitem{b3} J. U. Duncombe, ``Infrared navigation---Part I: An assessment of feasibility,'' \emph{IEEE Trans. Electron Devices}, vol. ED-11, no. 1, pp. 34--39, Jan. 1959, 10.1109/TED.2016.2628402.
+\end{thebibliography}
+
+\section{The Born of Set Theory}
+\textbox{The history of Set Theory}{
+    As the opening of his lectures, Feynman asked the following question:
+    \begin{quote}
+        If, in some cataclysm, all of scientific knowledge were to be destroyed, and only one sentence passed on to the next generations of creatures, what statement would contain the most information in the fewest words? 
+    \end{quote}
+    He gave an answer himself:
+    \begin{quote}
+        Matter is made of atoms.
+    \end{quote}
+    This statement is not absolutely right. For example, E\&M waves may be considered a form of matter which is not made of atoms (though made of quanta). Dark matter is not made of conventional atoms either, and dark energy does not look like atoms by all means. Nevertheless, our familiar matter world is indeed made of atoms. 
+    \marginnote{
+        With modern technology, \ref{item:atom-chem}, \ref{item:atom-size} and \ref{item:atom-evid} seems trivial. Because scanning tunneling microscopes can directly see and manipulate atoms. However, back to 150$\sim$200 years ago, how these features were known from scientific methods? Strictly speaking, they are not part of modern physics. But as it is not completely covered in general physics, I decide to include it here.
+    }
+    And I agree that this is the message that we should pass on. 
+    \tcblower
+    How do we know, why do we care, and what are the consequences that the world is made of atoms? This will be the focus of this part. More explicitly, we will address:
+    \tenum{
+        \item How the atomic theory arised in chemistry?\label{item:atom-chem}
+        \item How do we know the size of an atom?\label{item:atom-size}
+        \item Can we find direct evidences for the existence of atoms?\label{item:atom-evid}
+        \item How can an atom be stable? -- How does quantum mechanics save the world?\label{item:atom-quantum}
+        \item Where do the chemical natures of atoms arise?\label{item:atom-chem-nature}
+    }
+    \mtextbox{Oil film method}{
+        Independently, the size of atoms (molecules) can also be determined by oil film method. Franklin (1757) noted that oil can spread on a huge area of water. The thin film of oil upon water can be as thin as a single layer of molecule. However, such huge area is hard to measure. Is it possible to make the amount of oil smaller?
+        \tcblower
+        Langmuir (1917) used alcohol to dissolve oleic acad. Drip one drop of such solution to water. Alcohol is dissolved by water and oleic acad spread on the surface of water with an area measurable in a lab.
+    }
+    
+}
+\section{Test of Therorem Envirenment}
+The Basic Def of The Fy, How the atomic theory arised in chemistry?
+\begin{Definition}{The Test Definition environment}{mylabel}
+	\index{Dgeom@$D_{\mathrm{geom}, -}$, $D_{\mathrm{unip}, -}$}
+	Let $\mathcal{O}$ be a finite union of semisimple conjugacy classes in $M(F)$. Define
+	\begin{align*}
+		D_{\mathrm{geom},-}(\tilde{M}, \mathcal{O}) & := \left\{ D \in D_-(\tilde{M}) : \tilde{\gamma} \in \Supp(D) \implies \gamma_{\text{ss}} \in \mathcal{O} \right\}, \\
+		D_{\mathrm{geom}, -}(\tilde{M}) & := \bigoplus_{\substack{\mathcal{O} \subset M(F) \\ \text{ss.\ conj.\ class} }} D_{\mathrm{geom},-}(\tilde{M}, \mathcal{O}) \; \subset D_-(\tilde{M}), \\
+		D_{\mathrm{unip}, -}(\tilde{M}) & := D_{\mathrm{geom}, -}(\tilde{M}, \{1\}).
+	\end{align*}
+\end{Definition}
+\begin{remark}
+Counter is okay
+\end{remark}
+\begin{remark}
+    Where do the chemical natures of atoms arise?
+\end{remark}
+% \newgeometry{paper=a4paper,
+% 	top=3cm,
+% 	inner=2.54cm,
+% 	outer=2.54cm,
+% 	bottom=3cm,
+% 	headheight=5ex,
+% 	headsep=5ex,}
+
+\begin{Axiom}{Axiom of Choice}{}
+    For any set $X$ of nonempty \mathbf{Sets}, there exists a choice function $f$ that is defined on $X$ and maps each set of $X$ to an element of that set.
+\end{Axiom}
+% \begin{note}
+%     It's Axiom of Choice and useful
+% \end{note}
+% \begin{claim}
+%     Test of Claim Envirenment.
+% \end{claim}
+% \begin{Proof of claim}
+%     start.
+% \end{Proof of claim}
+\newgeometry{top=1.5cm, bottom=1.5cm, right=6cm, left=1.5cm, heightrounded, marginparwidth=5cm, marginparsep=0.5cm}
+\begin{theorem}{1.1.1}{}
+\textbf{Nested Interval Property (NIP).} For each $n\in \mathbb{N}$, assume we have an interval $I_{n}=[a_{n}, b_{n}]=\{x \in \mathbb{R}|a_{n} \leq x \leq b_{n}\}$ and that $I_{n+1}$ is a set of $I_{n}$. Then, the resulting nested sequence of closed intervals
+\begin{equation*}
+    I_1 \supseteq I_2 \supseteq I_3 \supseteq I_4 \supseteq ...
+\end{equation*}
+has a non empty intersection; that is, $\cap_{n=1}^{\infty} I_{n}$ is not equal to nonempty set.
+
+\end{theorem}
+% \begin{Thm}[Nested Interval Property (NIP)]
+% \textbf{Nested Interval Property (NIP).} For each $n\in \mathbb{N}$, assume we have an interval $I_{n}=[a_{n}, b_{n}]=\{x \in \mathbb{R}|a_{n} \leq x \leq b_{n}\}$ and that $I_{n+1}$ is a set of $I_{n}$. Then, the resulting nested sequence of closed intervals
+% \begin{equation*}
+%     I_1 \supseteq I_2 \supseteq I_3 \supseteq I_4 \supseteq ...
+% \end{equation*}
+% has a non empty intersection; that is, $\cap_{n=1}^{\infty} I_{n}$ is not equal to nonempty set.
+% \end{Thm}
+
+\begin{proof}
+    This is \cite[Théorème 5.20]{Li11}. First, it reduces to the case $\mathbf{G}^! \in \Endo_{\elli}(\tilde{G})$. The continuity in the Archimedean case is addressed in \cite[\S 7.1]{Li19}, which is based on the works of Adams and Renard. The $\tilde{K} \times \tilde{K}$-finite transfer in the Archimedean case is \cite[Theorem 7.4.5]{Li19}.
+\end{proof}
+\begin{Lem}
+For all $\phi \in T^{\Endo}(\tilde{G})$ and $f \in \orbI_{\asp}(\tilde{G}) \otimes \mes(G)$, we have\[ \Trans^{\Endo}(f)(\phi) = \sum_{\tau \in T_-(\tilde{G})/\mathbb{S}^1} \Delta(\phi, \tau) f_{\tilde{G}}(\tau).\]
+\end{Lem}
+\begin{proof}
+The non-Archimedean case is the main result of \cite{Li19}. Consider the case $F = \R$ next.
+Write $f_{\tilde{G}}(\pi) := \Theta_\pi(f_{\tilde{G}})$ for each $\pi \in \Pi_{\mathrm{temp}, -}(\tilde{G})$. The local character relation of \cite[Theorem 7.4.3]{Li19} yields a function $\Delta_{\mathrm{spec}}: T^{\Endo}(\tilde{G}) \times \Pi_{\mathrm{temp}, -}(\tilde{G}) \to \{\pm 1\}$ satisfying
+\begin{equation}\label{eqn:local-character-relation-aux-0}
+    \Trans^{\Endo}(f)(\phi) = \sum_{\pi \in \Pi_{\mathrm{temp}, -}(\tilde{G})} \Delta_{\mathrm{spec}}(\phi, \pi) f_{\tilde{G}}(\pi)
+\end{equation}
+for all $\phi$ and $f \in \orbI_{\asp}(\tilde{G}) \otimes \mes(G)$, and $\Delta_{\mathrm{spec}}(\cdot, \pi)$ (resp.\ $\Delta_{\mathrm{spec}}(\phi, \cdot)$) has finite support for each $\pi$ (resp.\ for each $\phi$). These properties characterize $\Delta_{\mathrm{spec}}$.Choose a representative in $T_-(\tilde{G})$ for every class in $T_-(\tilde{G})/\mathbb{S}^1$. By the theory of $R$-groups, $T_-(\tilde{G})/\mathbb{S}^1$ gives a basis of $D_{\mathrm{temp}, -}(\tilde{G}) \otimes \mes(G)^\vee$: specifically, we may write
+\[ \Theta_\tau = \sum_\pi \mathrm{mult}(\tau : \pi) \Theta_\pi, \quad \Theta_\pi = \sum_\tau \mathrm{mult}(\pi : \tau) \Theta_\tau \]
+for all $\tau \in T_-(\tilde{G})/\mathbb{S}^1$ with its representative and $\pi \in \Pi_{\mathrm{temp}, -}(\tilde{G})$, for uniquely determined coefficients $\mathrm{mult}(\cdots)$. Switching between bases, \eqref{eqn:local-character-relation-aux-0} uniquely determines
+	\[ \Delta^\circ: T^{\Endo}(\tilde{G}) \times T_-(\tilde{G}) \to \mathbb{S}^1 \]such that
+\begin{align*}
+	\Delta^\circ(\phi, z\tau) & = z\Delta^\circ(\phi, \tau), \quad z \in \mathbb{S}^1 , \\
+	\Trans^{\Endo}(f)(\phi) & = \sum_{\tau \in T_-(\tilde{G})/\mathbb{S}^1} \Delta^\circ(\phi, \tau) f_{\tilde{G}}(\tau)
+\end{align*}for all $f$. Specifically, $\Delta^\circ(\phi, \tau) = \sum_{\pi \in \Pi_{\mathrm{temp}, -}(\tilde{G})} \Delta_{\mathrm{spec}}(\phi, \pi) \mathrm{mult}(\pi : \tau)$ for all $\tau \in T_-(\tilde{G})/\mathbb{S}^1$.Our goal is thus to show
+\begin{equation}\label{eqn:local-character-relation-aux-1}
+    \Delta^\circ(\phi, \tau) = \Delta(\phi, \tau), \quad (\phi, \tau) \in T^{\Endo}(\tilde{G}) \times T_-(\tilde{G}).
+\end{equation}.The first step is to reduce to the elliptic setting. We say $\pi \in \Pi_{\mathrm{temp}, -}(\tilde{G})$ is \emph{elliptic} if $\Theta_\pi$ is not identically zero on $\Gamma_{\mathrm{reg, ell}}(\tilde{G})$. In \cite[Definition 7.4.1]{Li19} one defined a subset $\Pi_{2\uparrow, -}(\tilde{G})$ of $\Pi_{\mathrm{temp}, -}(\tilde{G})$. All $\pi \in \Pi_{2\uparrow, -}(\tilde{G})$ are elliptic. Indeed, by \cite[Remark 7.5.1]{Li19} $\pi$ is a non-degenerate limit of discrete series in the sense of Knapp--Zuckerman, and such representations are known to be elliptic; see \textit{loc.\ cit.} for the relevant references. By \cite[Proposition 5.4.4]{Li12b}, $T_{\elli, -}(\tilde{G})/\mathbb{S}^1$ gives a basis for the space spanned by the characters of all elliptic $\pi$. Let $\phi \in T^{\Endo}(\tilde{G})$. Take $M \in \mathcal{L}(M_0)$ and $\mathbf{M}^! \in \Endo_{\elli}(\tilde{M})$ such that $\phi$ comes from $\phi_{M^!} \in \Phi_{\mathrm{bdd}, 2}(M^!)$ up to $W^G(M)$. Denote the factors relative to $\tilde{M}$ as $\Delta^{\tilde{M}}$, etc. By \cite[Theorem 7.4.3]{Li19}, \[ \Delta_{\mathrm{spec}}(\phi, \pi) = \sum_{\pi_M \in \Pi_{2\uparrow, -}(\tilde{M})} \Delta^{\tilde{M}}_{\mathrm{spec}}(\phi_{M^!}, \pi_M) \mathrm{mult}(I_{\tilde{P}}(\pi_M) : \pi) \] for all $\pi \in \Pi_{\mathrm{temp}, -}(\tilde{G})$, where $P \in \mathcal{P}(M)$ and $\mathrm{mult}(I_{\tilde{P}}(\pi_M) : \pi)$ denotes the multiplicity of $\pi$ in $I_{\tilde{P}}(\pi_M)$. We claim that
+\begin{equation}\label{eqn:local-character-relation-aux-2}
+\Delta^\circ(\phi, \tau) = \sum_{\substack{\tau_M \in T_{\elli, -}(\tilde{M}) \\ \tau_M \mapsto \tau }} \Delta^{\tilde{M}, \circ}(\phi_{M^!}, \tau_M).
+\end{equation}
+Note that the sum is actually over an orbit $W^G(M) \tau_M$ if such a $\tau_M$ exists. We may assume $\tau$ is the representative of some element from $T_-(\tilde{G})/\mathbb{S}^1$; we also choose representatives in $T_-(\tilde{M})$ for $T_-(\tilde{M})/\mathbb{S}^1$ compatibly with induction. We have
+\begin{multline*}
+\Delta^\circ(\phi, \tau) = \sum_{\pi \in \Pi_{\mathrm{temp}, -}(\tilde{G})} \Delta_{\mathrm{spec}}(\phi, \pi) \mathrm{mult}(\pi : \tau) \\
+		= \sum_\pi \sum_{\pi_M \in \Pi_{2\uparrow, -}(\tilde{M})} \sum_{\tau_M \in T_{\elli, -}(\tilde{M})/\mathbb{S}^1} \\
+		\cdot \mathrm{mult}(\tau_M : \pi_{\tilde{M}}) \mathrm{mult}(I_{\tilde{P}}(\pi_{\tilde{M}}) : \pi ) \mathrm{mult}(\pi : \tau) \Delta^{\tilde{M}, \circ}(\phi_{M^!}, \tau_M).
+\end{multline*} Given $\tau_M$, the sum over $(\pi, \pi_M)$ of the triple products of $\mathrm{mult}(\cdots)$ is readily seen to be $1$ if $\tau_M \mapsto \tau$, otherwise it is zero. This proves \eqref{eqn:local-character-relation-aux-2}. Observe that \eqref{eqn:local-character-relation-aux-2} take the same form as the induction formula in Definition \ref{def:spectral-transfer-factor}. In order to prove \eqref{eqn:local-character-relation-aux-1}, we may assume $\phi \in T^{\Endo}_{\elli}(\tilde{G})$, in which case $\Delta^\circ(\phi, \tau) = 0$ unless $\tau \in T_{\elli, -}(\tilde{G})$, and ditto for $\Delta(\phi, \tau)$. It is thus legitimate to take $f \in \orbI_{\asp, \cusp}(\tilde{G}) \otimes \mes(G)$ in the characterization of $\Delta^\circ(\phi, \cdot)$. All in all, $\Delta^\circ(\phi, \cdot)$ and $\Delta(\phi, \cdot)$ have the same characterization, whence \eqref{eqn:local-character-relation-aux-1}.The case $F = \CC$ is even simpler because it reduces to the case of split maximal tori via parabolic induction: see \cite[\S 7.6]{Li19}.
+\end{proof}
+\begin{note}
+This is a custom note box! It's designed to draw the reader's attention to important information.
+\end{note}
+\begin{Example}{$\bs{p-}$Norm}{sec_example1}
+\label{pnorm}$V={\bbR}^m$, $p\in\bbR_{\geq 0}$. Define for $x=(x_1,x_2,\cdots,x_m)\in\bbR^m$ $$\|x\|_p=\Big(|x_1|^p+|x_2|^p+\cdots+|x_m|^p\Big)^{\frac1p}$$(In school $p=2$)
+\end{Example}
+\begin{Example}{}{sec_example2}
+Prove that triangle inequality is true if $p\geq 1$ for $p-$norms. (What goes wrong for $p<1$
+\end{Example}
+\begin{proof}
+\textbf{For Property \ref{n:3} for norm-2}	\subsubsection*{\textbf{When field is $\bbR:$}} We have to show
+\begin{align*}
+& \sum_i(x_i+y_i)^2\leq \left(\sqrt{\sum_ix_i^2} +\sqrt{\sum_iy_i^2}\right)^2                                       \\
+\implies & \sum_i (x_i^2+2x_iy_i+y_i^2)\leq \sum_ix_i^2+2\sqrt{\left[\sum_ix_i^2\right]\left[\sum_iy_i^2\right]}+\sum_iy_i^2 \\
+\implies & \left[\sum_ix_iy_i\right]^2\leq \left[\sum_ix_i^2\right]\left[\sum_iy_i^2\right]
+\end{align*}
+So in other words prove $\langle x,y\rangle^2 \leq \langle x,x\rangle\langle y,y\rangle$ where $$\langle x,y\rangle =\sum\limits_i x_iy_i$$
+\end{proof}
+\begin{note}
+    \begin{itemize}
+	\item $\|x\|^2=\langle x,x\rangle$
+	\item $\langle x,y\rangle=\langle y,x\rangle$
+	\item $\langle \cdot,\cdot\rangle$ is $\bbR-$linear in each slot i.e. 
+     \begin{align*}
+	\langle rx+x',y\rangle=r\langle x,y\rangle+\langle x',y\rangle	\text{ and similarly for second slot}
+     \end{align*}
+         Here in $\langle x,y\rangle$ $x$ is in first slot and $y$ is in second slot.
+      \end{itemize}
+\end{note} 
+The Test\\
+\begin{Cor}
+    Let $i^{G^![s]}_{M^!}(\epsilon[s])$ be as in  \eqref{eqn:iGM-jump}. We have
+	\[ i_{M^!}\left( \tilde{G}, G^![s] \right) i^{G^![s]}_{M^!}(\epsilon[s]) \cdot \left\|\check{\beta}\right\| =
+	\left( Z_{\tilde{M}^\vee}^{\hat{\alpha}^*} : Z_{\underline{\tilde{M}}^\vee}^\circ \right)^{-1}
+	i_{\underline{M}^!}\left( \tilde{G}, G^![s] \right) \cdot \left\|\check{\alpha}\right\|. \]
+\end{Cor}
+\begin{proof}
+    Use \cite[Lemma 1.1]{Ar99} to obtain the natural surjection $Z_{\tilde{M}^\vee}^\circ / Z_{\tilde{G}^\vee}^\circ \twoheadrightarrow Z_{(M^!)^\vee} / Z_{G^![s]^\vee}$. Denote its kernel as $K_1$. One readily checks that $|K_1|^{-1} = i_{M^!}\left( \tilde{G}, G^![s] \right)$ as in \cite[p.230 (2)]{MW16-1}.
+	We contend that the image of $Z_{\tilde{M}^\vee}^{\hat{\alpha}^*} / Z_{\tilde{G}^\vee}^\circ$ is contained in $Z_{(M^!)^\vee}^{\check{\beta}} / Z_{G^![s]^\vee}$. When $\alpha$ is short, $\check{\alpha}$ transports to $\check{\beta}$ under $T^! \simeq T$; in this case $Z_{\tilde{M}^\vee}^{\hat{\alpha}^*} / Z_{\tilde{G}^\vee}^\circ$ is actually the preimage of $Z_{(M^!)^\vee}^{\check{\beta}} / Z_{G^![s]^\vee}$. When $\alpha$ is long, $\check{\alpha}$ transports to $\frac{1}{2} \check{\beta}$, and the containment is clear.
+	Set $K'_1 := K_1 \cap (Z_{\tilde{M}^\vee}^{\hat{\alpha}^*} / Z_{\tilde{G}^\vee}^\circ)$; we have just seen that $K_1 = K'_1$ if $\alpha$ is short. From these and Lemma \ref{prop:alpha-Z-Mbar}, we obtain the following commutative diagram of abelian groups, with exact rows:
+	\[\begin{tikzcd}
+        & 1 \arrow[d] & 1 \arrow[d] & 1 \arrow[d] & & \\
+		1 \arrow[r] & K_3 \arrow[d] \arrow[r] & Z_{\underline{\tilde{M}}^\vee}^\circ / Z_{\tilde{G}^\vee}^\circ \arrow[d] \arrow[r] & Z_{(\underline{M}^!)^\vee} / Z_{G^![s]^\vee} \arrow[r] \arrow[d] & 1 \arrow[r] \arrow[d] & 1 \\
+		1 \arrow[r] & K'_1 \arrow[r] \arrow[d] & Z_{\tilde{M}^\vee}^{\hat{\alpha}^*} / Z_{\tilde{G}^\vee}^\circ \arrow[r] \arrow[d] & Z_{(M^!)^\vee}^{\check{\beta}} / Z_{G^![s]^\vee} \arrow[r] \arrow[d] & C_1 \arrow[r] \arrow[d] & 1 \\
+		1 \arrow[r] & K_2 \arrow[r] \arrow[d] & Z_{\tilde{M}^\vee}^{\hat{\alpha}^*} / Z_{\underline{\tilde{M}}^\vee}^\circ \arrow[r] \arrow[d] & Z_{(M^!)^\vee}^{\check{\beta}} / Z_{(\underline{M}^!)^\vee} \arrow[r] \arrow[d] & C_2 \arrow[r] & 1 \\
+        & 1 & 1 & 1 & &
+	\end{tikzcd}\]
+	where $K_2, K_3$ (resp.\ $C_1$, $C_2$) are defined to be the kernels (resp.\ cokernels); they are all finite. The second and the third columns are readily seen to be exact, hence so is the first column by the Snake Lemma.
+	Next, observe that $|K_3|^{-1} = i_{\underline{M}^!}(\tilde{G}, G^![s])$ as in the case of $|K_1|^{-1}$. Hence
+	\begin{align*}
+		i_{M^!}(\tilde{G}, G^![s]) & = |K_1|^{-1} = |K'_1|^{-1} (K_1 : K'_1)^{-1} \\
+		& = |K_2|^{-1} |K_3|^{-1} (K_1 : K'_1)^{-1} \\
+		& = |K_2|^{-1} i_{\underline{M}^!}(\tilde{G}, G^![s]) (K_1 : K'_1)^{-1}.
+	\end{align*}
+	It remains to prove that
+	\begin{equation*}
+		|K_2| (K_1 : K'_1) = \left( Z_{\tilde{M}^\vee}^{\hat{\alpha}^*} : Z_{\underline{\tilde{M}}^\vee}^\circ \right)  i^{G^![s]}_{M^!}(\epsilon[s]) \cdot \frac{\|\check{\beta}\|}{\|\check{\alpha}\|} .
+	\end{equation*}
+	Using the third row of the diagram and \eqref{eqn:iGM-jump}, we see $|K_2| = \left( Z_{\tilde{M}^\vee}^{\hat{\alpha}^*} : Z_{\underline{\tilde{M}}^\vee}^\circ \right)  i^{G^![s]}_{M^!}(\epsilon[s]) |C_2|$, thus we are reduced to proving
+	\begin{equation*}
+		|C_2| (K_1 : K'_1) = \frac{\|\check{\beta}\|}{\|\check{\alpha}\|}.
+	\end{equation*}
+	When $\alpha$ is short, we have seen that $K_1 = K'_1$, $\|\check{\alpha}\| = \|\check{\beta}\|$ whilst $C_2 = \{1\}$ (upon replacing $\tilde{G}$ by $\underline{\tilde{M}}$). The required equality follows at once.
+	Hereafter, suppose that $\alpha$ is long. Write $\tilde{G} = \prod_{i \in I} \GL(n_i) \times \Mp(2n)$. Without loss of generality, we may express $\alpha = 2\epsilon_i$ under the usual basis for $\Sp(2n)$. The index $i$ must fall under a $\GL$-factor of $M$ that embeds into $\Sp(2n)$. Moreover, $\check{\alpha} = \check{\epsilon}_i$ and $\check{\beta} = 2\check{\epsilon}_i$. It is clear that
+	\begin{gather*}
+		Z_{\tilde{M}^\vee}^\circ = Z_{(M^!)^\vee}^\circ , \quad Z_{\tilde{M}^\vee}^{\hat{\alpha}^*} = Z_{\underline{\tilde{M}}^\vee}^\circ = Z_{(\underline{M}^!)^\vee}^\circ, \\
+		(K_1 : K'_1 ) = \left( Z_{(M^!)^\vee}^\circ \cap Z_{G^![s]^\vee} : Z_{(\underline{M}^!)^\vee}^\circ \cap Z_{G^![s]^\vee} \right).
+	\end{gather*}
+	Thus it remains to verify in this case that
+	\begin{equation}\label{eqn:jump-m-aux}
+		\left( Z_{(M^!)^\vee}^{\check{\beta}} : Z_{(\underline{M}^!)^\vee} \right) \left( Z_{(M^!)^\vee}^\circ \cap Z_{G^![s]^\vee} : Z_{(\underline{M}^!)^\vee}^\circ \cap Z_{G^![s]^\vee} \right) = 2.
+	\end{equation}
+	Observe that \eqref{eqn:jump-m-aux} involves only the objects on the endoscopic side. We may write
+	\[ G^![s] = \prod_{i \in I} \GL(n_i) \times \SO(2n'+1) \times \SO(2n''+1), \quad n' + n'' = n. \]
+	The first step is to reduce to the case $I = \emptyset$ and $n'' = 0$. Indeed, $M^!$ and $\underline{M}^!$ decompose accordingly, and the construction of $\underline{M}^!$ takes place inside either $\SO(2n'+1)$ or $\SO(2n''+1)$, on which $\beta$ lives. Hence we may rename $G^![s]$ to $G^!$ and assume $G^! = \SO(2n+1)$.
+	Accordingly, we can write $M^! = \prod_{j=1}^k \GL(m_j) \times \SO(2m+1)$ where $m \in \Z_{\geq 0}$, such that $\check{\beta}$ factors through the dual of $\GL(m_1)$, so that $\underline{M}^!$ is obtained by merging $\GL(m_1)$ with $\SO(2m'+1)$ to form a larger Levi subgroup of $G^!$.
+	\begin{itemize}
+		\item Suppose $m=0$, then the first index in \eqref{eqn:jump-m-aux} is $1$ since
+		\[ Z_{(M^!)^\vee}^{\check{\beta}} = \{\pm 1\} \times \prod_{j \geq 2} \CC^\times = Z_{(\underline{M}^!)^\vee}. \]
+		On the other hand, $Z_{(M^!)^\vee}^\circ \cap Z_{(G^!)^\vee} = Z_{(G^!)^\vee} = \{\pm 1\}$ and $Z_{(\underline{M}^!)^\vee}^\circ \cap Z_{(G^!)^\vee} = \{1\}$, so the second index is $2$. Hence \eqref{eqn:jump-m-aux} is verified.
+		\item Suppose $m \geq 1$, then
+		\[ Z_{(M^!)^\vee}^{\check{\beta}} = \{\pm 1\} \times \prod_{j \geq 2} \CC^\times \times \{\pm 1\} ,\]
+		whilst $Z_{(\underline{M}^!)^\vee}$ has only one $\{\pm 1\}$-factor diagonally embedded, so the first index is $2$. On the other hand,
+		\[ Z_{(M^!)^\vee}^\circ = \prod_{j \geq 1} \CC^\times \times \{1\} \]
+		intersects trivially with $Z_{(G^!)^\vee} \simeq \{\pm 1\}$, so the second index is $1$. Again, \eqref{eqn:jump-m-aux} is verified.
+	\end{itemize}
+	Summing up, the case of long roots is completed.
+\end{proof}
+\section{Categories}
+\begin{Definition}
+	In view of Proposition \ref{prop:Levi-central-twist}, we may define the \emph{collective geometric transfer} $\Trans^{\Endo}$ as
+	\begin{equation*}\begin{tikzcd}[row sep=tiny]
+		\orbI_{\asp}(\tilde{G}) \otimes \mes(G) \arrow[r, "{\Trans^{\Endo}}" inner sep=0.8em] & \orbI^{\Endo}(\tilde{G}) \\
+		\orbI_{\asp, \cusp}(\tilde{G}) \otimes \mes(G) \arrow[phantom, u, "\subset" description, sloped] \arrow[r, "{\Trans^{\Endo}_{\cusp}}"'] & \orbI^{\Endo}_{\cusp}(\tilde{G}) \arrow[phantom, u, "\subset" description, sloped]
+	\end{tikzcd}\end{equation*}mapping $f$ to $\left( \Trans_{\mathbf{G}^!, \tilde{G}}(f)\right)_{\mathbf{G}^! \in \Endo_{\elli}(\tilde{G})}$. When $F$ is Archimedean, it is continuous and restricts to
+	\[ \Trans_{\mathbf{G}^!, \tilde{G}}: \orbI_{\asp}(\tilde{G}, \tilde{K}) \otimes \mes(G) \to \orbI^{\Endo}(\tilde{G}, \tilde{K}); \]
+	ditto for the case with subscripts ``$\cusp$'' (see Theorem \ref{prop:geom-transfer}).
+	Taking transpose yields the collective transfer of distributions
+	\[ \trans^{\Endo}: \bigoplus_{\mathbf{G}^! \in \Endo_{\elli}(\tilde{G})} SD(G^!) \otimes \mes(G^!)^\vee \to D_-(\tilde{G}) \otimes \mes(G)^\vee . \]
+These notions extend immediately to groups of metaplectic type.
+\end{Definition}
+% \begin{remark}
+%     The Test 1
+% \end{remark}
+% \begin{remark}
+%     The Test 1
+% \end{remark}
+
+\begin{Proposition}{Dirichlet BVP on the Upper Half Plane.}{}
+Suppose that $f: \mathbb{R} \rightarrow \mathbb{R}$ is continuous and both $\lim_{x \to -\infty} f(x) $ and $\lim_{x \to +\infty} f(x) $ exist and are finite. Then $u: \mathbb{H} \rightarrow \mathbb{R}$ define by the integral 
+$$ u(z) = \operatorname{Re}(\frac{1}{\pi i}) \int_{-\infty}^{+\infty} \frac{f(t)}{t-z}\mathrm{d}t, $$ is the unique solution to the Dirichlet BVP:$$\nabla^{2}u=0 \quad in \quad \mathbb{H} \quad u=f \quad on \quad \partial \mathbb{H} $$
+\end{Proposition}
+
+\begin{proof}
+    For any $z_0 \in \mathbb{H}$, consider the biholomorphism
+    $$
+    \psi(z)=\frac{z-z_0}{z-\bar{z}_0}
+    $$
+    which maps $\mathbb{H}$ onto $\mathbb{D},(-\infty,+\infty)$ onto $\partial \mathbb{D} \backslash\{1\}$, and $z_0$ to 0 . Then $\psi \circ f$ is continuous on $\partial \mathbb{D} \backslash\{1\}$ and bounded on $\partial \mathbb{D}$. By Theorem 4.79 and the remark after it, there exists a unique bounded harmonic function $v: \mathbb{D} \rightarrow \mathbb{R}$ such that $v=\psi \circ f$ on $\partial \mathbb{D} \backslash\{1\}$. Hence $u:=\psi^{-1} \circ v$ is the unique solution to the Dirichlet BVP on $\mathbb{H}$.
+    Now we turn to the computation of the explicit formula of the solution. By mean value property we have
+    $$
+    \nu(0)=\frac{1}{2 \pi} \int_0^{2 \pi} \nu\left(\mathrm{e}^{\mathrm{i} \theta}\right) \mathrm{d} \theta
+    $$
+    Since $\psi$ maps $(-\infty,+\infty)$ onto $\partial \mathbb{D} \backslash\{1\}$,
+    $$
+    \mathrm{e}^{\mathrm{i} \theta}=\frac{t-z_0}{t-\bar{z}_0} \Rightarrow \theta=-\mathrm{i} \log \left(\frac{t-z_0}{t-\bar{z}_0}\right)
+    $$
+    Take the differential:
+    $$
+    \mathrm{d} \theta=-\mathrm{i} \frac{t-\bar{z}_0}{t-z_0} \cdot\left(-\frac{\bar{z}_0-z_0}{\left(t-\bar{z}_0\right)^2}\right) \mathrm{d} t=\mathrm{i} \frac{\bar{z}_0-z_0}{\left(t-z_0\right)\left(t-\bar{z}_0\right)} \mathrm{d} t=\frac{2 \operatorname{Im} z_0}{t^2-2 t \operatorname{Re} z_0+\left|z_0\right|^2} \mathrm{~d} t=\operatorname{Re}\left(\frac{2}{\mathrm{i}\left(t-z_0\right)}\right) \mathrm{d} t
+    $$
+    Since $v(0)=u\left(z_0\right)$, we have
+    $$
+    u\left(z_0\right)=\frac{1}{2 \pi} \int_{-\infty}^{+\infty} f(t) \operatorname{Re}\left(\frac{2}{\mathrm{i}\left(t-z_0\right)}\right) \mathrm{d} t=\operatorname{Re}\left(\frac{1}{\pi \mathrm{i}} \int_{-\infty}^{+\infty} \frac{f(t)}{t-z} \mathrm{~d} t\right)
+    $$, Therefore the proposition is proved.
+
+\end{proof}
+\begin{theorem}{1.1.1}{}
+\textbf{Nested Interval Property (NIP).} For each $n\in \mathbb{N}$, assume we have an interval $I_{n}=[a_{n}, b_{n}]=\{x \in \mathbb{R}|a_{n} \leq x \leq b_{n}\}$ and that $I_{n+1}$ is a set of $I_{n}$. Then, the resulting nested sequence of closed intervals
+\begin{equation*}
+    I_1 \supseteq I_2 \supseteq I_3 \supseteq I_4 \supseteq ...
+\end{equation*}
+has a non empty intersection; that is, $\cap_{n=1}^{\infty} I_{n}$ is not equal to nonempty set.
+\end{theorem}
+\begin{proof}
+    Exercis.
+\end{proof}
+\begin{Example}{Yet another section-based Example}{sec_example3}
+\end{Example}
+\end{document}
+
+
+
