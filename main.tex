@@ -1,7 +1,7 @@
 \documentclass[11pt, a3paper, openany]{article}
 %\usepackage[fleqn]{amsmath}
 \usepackage{amssymb,graphicx,color,graphicx,slashed, microtype, parskip, enumitem, extarrows, needspace}
-\usepackage[top=1.5cm, bottom=1.5cm, right=6cm, left=1.5cm, heightrounded, marginparwidth=5cm, marginparsep=0.5cm]{geometry}
+\usepackage[top=1.7cm, bottom=1.5cm, right=6cm, left=1.5cm, heightrounded, marginparwidth=5cm, marginparsep=0.5cm]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
 % \usepackage{mathpazo}
@@ -12,6 +12,7 @@
 \usepackage{lmodern}
 \usepackage{cite}
 \usepackage{changepage}
+\usepackage{marvosym}
 
 \geometry{
 	% paper=a4paper,
@@ -719,12 +720,39 @@
 \WarningsOff[tcolorbox]
 \hbadness=1000000
 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\vspace{-2ex}\includegraphics[height=3.956ex]{NJUPT_Math.png}}\setlength{\headheight}{3.8000ex}
+\chead{}
+\rhead{Abstract Algebra}
+\lfoot{\color{gray}\small \copyright\ \textsc{H.-T.~Guo}~(\texttt{guohuitongguo@gmail.com})}
+\cfoot{\thepage}
+\rfoot{\color{gray}\small 2021}
+% \usepackage{fancyhdr}
+% \usepackage{graphicx}
+% \usepackage{xcolor}
+
+% \pagestyle{fancy}
+% \fancyhf{} % 清除现有的页眉和页脚
+
+% % 使图片紧贴页眉线
+% \lhead{\vspace{-1.ex}\raisebox{-1ex}{\includegraphics[height=3.956ex]{NJUPT_Math.png}}}\setlength{\headheight}{3.8000ex}
+
+% \chead{}
+% \rhead{Abstract Algebra}
+% \lfoot{\color{gray}\small \copyright\ \textsc{T.-Y.~Li}~(\texttt{kellty@pku.edu.cn})}
+% \cfoot{\thepage}
+% \rfoot{\color{gray}\small 2021}
+
+% % 调整页眉高度
+% \setlength{\headheight}{4.2ex}
 \title{Lecture Notes Part 1: Set Theory and Category}
 
 % \date{\today}
 \begin{document}
 
 \maketitle
+% \pdfbookmark[1]{\contentsname}{toc}
 \tableofcontents
 
 \begin{thebibliography}{99}
@@ -801,7 +829,7 @@ Counter is okay
 % \begin{Proof of claim}
 %     start.
 % \end{Proof of claim}
-\newgeometry{top=1.5cm, bottom=1.5cm, right=6cm, left=1.5cm, heightrounded, marginparwidth=5cm, marginparsep=0.5cm}
+% \newgeometry{top=1.5cm, bottom=1.5cm, right=6cm, left=1.5cm, heightrounded, marginparwidth=5cm, marginparsep=0.5cm}
 % \newgeometry{
 % 	paper=a3paper,
 % 	top=3cm,
@@ -1023,26 +1051,21 @@ has a non empty intersection; that is, $\cap_{n=1}^{\infty} I_{n}$ is not equal 
 	\[ \orbI_{\asp}(\tilde{G}, \tilde{K}) \otimes \mes(G) \to S\orbI(G^!, K^!) \otimes \mes(G^!), \]
 	where $K \subset G(F)$ and $K^! \subset G^!(F)$ are maximal compact subgroups.
 \end{theorem}
-\begin{Example}{Yet another section-based Example}{sec_example3}
-\end{Example}
-\begin{proof}
-$$a+b=b+a$$
-\begin{align}
-	f(x)=\sum_{i=1}^n ax + b
-\end{align}
-\begin{equation}
-\label{eq3}
-\begin{split}
-	y &= ax^2+bx+c \\
-	  &= bx+ax^2+c \\
-	  &= c + bx + ax^2
-\end{split}&
-\end{equation}
-\begin{gather*}
-	y &= ax^2+bx+c \\
-	  &= bx+ax^2+c \\
-	  &= c + bx + ax^2
-\end{gather*}
-\end{proof}
+% \begin{Example}{Yet another section-based Example}{sec_example3}
+% \end{Example}
 
+\vspace{2.333ex}
+\begin{center}
+	\includegraphics[width=0.4\linewidth]{cut-off_rule.png}
+	\vspace{-5ex}
+\end{center}
+\pdfbookmark[1]{封底}{back}
+\hfill {\Large $\mathfrak{The\ End}$ \Coffeecup}
+\vspace{5.555ex}
+\begin{center}
+	\includegraphics[width=0.9\linewidth]{understand.png}
+\end{center}
 \end{document}
+
+
+
