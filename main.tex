@@ -1,5 +1,5 @@
 \documentclass[11pt, a3paper, openany]{article}
-\usepackage[fleqn]{amsmath}
+%\usepackage[fleqn]{amsmath}
 \usepackage{amssymb,graphicx,color,graphicx,slashed, microtype, parskip, enumitem, extarrows, needspace}
 \usepackage[top=1.5cm, bottom=1.5cm, right=6cm, left=1.5cm, heightrounded, marginparwidth=5cm, marginparsep=0.5cm]{geometry}
 \usepackage{amsmath}
@@ -204,6 +204,9 @@
     \hbox to 0.7\textwidth{\leaders\hbox to 5pt{\hss . \hss}\hfil}}
     \mnewline
 }
+%----------------------------------------------------------------------------------------
+%	Basic Thm Environment
+%----------------------------------------------------------------------------------------
 
 %----------------------------------------------------------------------------------------
 %	Basic Math Notation Definition
@@ -432,7 +435,7 @@
 %----------------------------------------------------------------------------------------
 %	Theorem version 2
 %----------------------------------------------------------------------------------------
-\newtcbtheorem[no counter]{theorem}{Theorem}{
+\newtcbtheorem[number within=section]{theorem}{Theorem}{
   enhanced,
   sharp corners,
   attach boxed title to top left={
@@ -501,9 +504,9 @@
 	\mdfsetup{
 		frametitle={
 			\tikz[baseline=(current bounding box.east), outer sep=0pt]
-			\node[anchor=east,rectangle,fill=blue!20]
+			\node[anchor=east,rectangle,fill=gray!20]
 			{\strut Corollary~\theCor\ifstrempty{#1}{}{:~#1}};},
-		innertopmargin=10pt,linecolor=blue!20,
+		innertopmargin=10pt,linecolor=gray!20,
 		linewidth=2pt,topline=true,
 		frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 	}
@@ -550,7 +553,7 @@
 %----------------------------------------------------------------------------------------
 %	Proposition
 %----------------------------------------------------------------------------------------
-\newtcbtheorem[no counter]{Proposition}{Proposition}{
+\newtcbtheorem[number within=section]{Proposition}{Proposition}{
   enhanced,
   sharp corners,
   attach boxed title to top left={
@@ -799,7 +802,16 @@ Counter is okay
 %     start.
 % \end{Proof of claim}
 \newgeometry{top=1.5cm, bottom=1.5cm, right=6cm, left=1.5cm, heightrounded, marginparwidth=5cm, marginparsep=0.5cm}
-\begin{theorem}{1.1.1}{}
+% \newgeometry{
+% 	paper=a3paper,
+% 	top=3cm,
+% 	inner=2.54cm,
+% 	outer=2.54cm,
+% 	bottom=3cm,
+% 	headheight=5ex,
+% 	headsep=5ex,
+% }
+\begin{theorem}{}{}
 \textbf{Nested Interval Property (NIP).} For each $n\in \mathbb{N}$, assume we have an interval $I_{n}=[a_{n}, b_{n}]=\{x \in \mathbb{R}|a_{n} \leq x \leq b_{n}\}$ and that $I_{n+1}$ is a set of $I_{n}$. Then, the resulting nested sequence of closed intervals
 \begin{equation*}
     I_1 \supseteq I_2 \supseteq I_3 \supseteq I_4 \supseteq ...
@@ -867,15 +879,15 @@ Prove that triangle inequality is true if $p\geq 1$ for $p-$norms. (What goes wr
 So in other words prove $\langle x,y\rangle^2 \leq \langle x,x\rangle\langle y,y\rangle$ where $$\langle x,y\rangle =\sum\limits_i x_iy_i$$
 \end{proof}
 \begin{note}
-    \begin{itemize}
+   \begin{itemize}
 	\item $\|x\|^2=\langle x,x\rangle$
 	\item $\langle x,y\rangle=\langle y,x\rangle$
 	\item $\langle \cdot,\cdot\rangle$ is $\bbR-$linear in each slot i.e. 
-     \begin{align*}
-	\langle rx+x',y\rangle=r\langle x,y\rangle+\langle x',y\rangle	\text{ and similarly for second slot}
-     \end{align*}
-         Here in $\langle x,y\rangle$ $x$ is in first slot and $y$ is in second slot.
-      \end{itemize}
+\begin{align*}
+	\langle rx+x',y\rangle=r\langle x,y\rangle+\langle x',y\rangle \text{ and similarly for second slot}
+\end{align*}
+Here in $\langle x,y\rangle$ $x$ is in first slot and $y$ is in second slot.
+    \end{itemize}
 \end{note} 
 The Test\\
 \begin{Cor}
@@ -995,9 +1007,42 @@ has a non empty intersection; that is, $\cap_{n=1}^{\infty} I_{n}$ is not equal 
 \begin{proof}
     Exercis.
 \end{proof}
+\begin{theorem}{}{}
+    \index{transfer}
+	\index{TGG@$\Trans_{\mathbf{G}^{"!}, \tilde{G}}$}
+	Given $\mathbf{G}^! \in \Endo(\tilde{G})$, there exists a linear map
+	\[\begin{tikzcd}[row sep=tiny]
+		\Trans = \Trans_{\mathbf{G}^!, \tilde{G}}: \orbI_{\asp}(\tilde{G}) \otimes \mes(G) \arrow[r] & S\orbI(G^!) \otimes \mes(G^!)\\
+		f \arrow[mapsto, r]& f^{G^!}
+	\end{tikzcd}\]
+	such that for all $\delta \in \Sigma_{G\text{-reg}}(G^!)$, we have
+	\[ \sum_{\delta \in \Gamma_{\mathrm{reg}}(G)} \Delta_{\mathbf{G}^!, \tilde{G}}(\delta, \tilde{\gamma}) f_{\tilde{G}}(\tilde{\gamma}) = f^{G^!}(\delta) \]
+	where $\tilde{\gamma} \in \rev^{-1}(\gamma)$ is arbitrary, with the aforementioned convention on Haar measures.
+	
+	When $F$ is Archimedean, $\Trans$ is continuous and it restricts to
+	\[ \orbI_{\asp}(\tilde{G}, \tilde{K}) \otimes \mes(G) \to S\orbI(G^!, K^!) \otimes \mes(G^!), \]
+	where $K \subset G(F)$ and $K^! \subset G^!(F)$ are maximal compact subgroups.
+\end{theorem}
 \begin{Example}{Yet another section-based Example}{sec_example3}
 \end{Example}
+\begin{proof}
+$$a+b=b+a$$
+\begin{align}
+	f(x)=\sum_{i=1}^n ax + b
+\end{align}
+\begin{equation}
+\label{eq3}
+\begin{split}
+	y &= ax^2+bx+c \\
+	  &= bx+ax^2+c \\
+	  &= c + bx + ax^2
+\end{split}&
+\end{equation}
+\begin{gather*}
+	y &= ax^2+bx+c \\
+	  &= bx+ax^2+c \\
+	  &= c + bx + ax^2
+\end{gather*}
+\end{proof}
+
 \end{document}
-
-
-
