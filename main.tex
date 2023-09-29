@@ -31,6 +31,9 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, urlcolor=NavyBlue, bookmarksdepth=3}
 \makeatletter\newcommand{\@minipagerestore}{\setlength{\parskip}{\medskipamount}}\makeatother
+\usepackage{titletoc}
+\titlecontents{section}[3em]{}{\sf\contentslabel{2.33em}}{}{\,\titlerule*[0.5pc]{$\cdot$}\contentspage}[\vspace{1.1ex}]
+\renewcommand{\thesection}{\S\arabic{section}}
 % =============== Index ===========================
 \usepackage[nonewpage]{imakeidx}
 \makeindex
@@ -706,7 +709,7 @@
     #1,
 }
 % ---------------------------------------------------------------------------------------
-%
+%    Proof
 %---------------------------------------------------------------------------------------
 \usepackage{amsthm}
 \renewcommand{\proofname}{\normalfont \textbf{Proof}}
@@ -723,11 +726,12 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \lhead{\vspace{-2ex}\includegraphics[height=3.956ex]{NJUPT_Math.png}}\setlength{\headheight}{3.8000ex}
+% \lhead{\vspace{-2ex}\includegraphics[height=3.956ex]{images/NJUPT_Math.png}}\setlength{\headheight}{3.8000ex}
 \chead{}
-\rhead{Abstract Algebra}
+\rhead{\textsl{Notes} for \textbf{Abstract Algebra}}
 \lfoot{\color{gray}\small \copyright\ \textsc{H.-T.~Guo}~(\texttt{guohuitongguo@gmail.com})}
 \cfoot{\thepage}
-\rfoot{\color{gray}\small 2021}
+\rfoot{\color{gray}\small 2023}
 % \usepackage{fancyhdr}
 % \usepackage{graphicx}
 % \usepackage{xcolor}
@@ -753,11 +757,14 @@
 
 \maketitle
 % \pdfbookmark[1]{\contentsname}{toc}
+
+
 \tableofcontents
 
 \vspace{1ex}
 \begin{center}
 	\includegraphics[width=0.4\linewidth]{cut-off_rule.png}
+        % \includegraphics[width=0.4\linewidth]{images/cut-off_rule.png}
 \end{center}
 \vspace{-3ex}
 
@@ -788,6 +795,7 @@
 \vspace{3ex}
 \begin{center}
 	\includegraphics[width=0.4\linewidth]{cut-off_rule.png}
+        % \includegraphics[width=0.4\linewidth]{images/cut-off_rule.png}
 \end{center}
 \vspace{1ex}
 \begin{quotation}
@@ -796,6 +804,7 @@
 \hfill ------ John Tukey
 \end{quotation}
 
+
 \Pickup\ Latest Version: \url{https://www.overleaf.com/read/qvqfvzcbvvjh}
 
 \Pickup\ Course Page: \url{https://www.math.pku.edu.cn/teachers/linw/2721s21.html}
@@ -803,6 +812,7 @@
 \begin{figure}[!b]
 	\centering
 	\includegraphics[width=0.6\linewidth]{jocho.png}
+        % \includegraphics[width=0.6\linewidth]{images/jocho.png}
 	\vspace{11ex}
 \end{figure}
 
@@ -1107,6 +1117,7 @@ has a non empty intersection; that is, $\cap_{n=1}^{\infty} I_{n}$ is not equal 
 \vspace{2.333ex}
 \begin{center}
 	\includegraphics[width=0.4\linewidth]{cut-off_rule.png}
+        % \includegraphics[width=0.4\linewidth]{images/cut-off_rule.png}
 	\vspace{-5ex}
 \end{center}
 \pdfbookmark[1]{封底}{back}
@@ -1114,5 +1125,6 @@ has a non empty intersection; that is, $\cap_{n=1}^{\infty} I_{n}$ is not equal 
 \vspace{5.555ex}
 \begin{center}
 	\includegraphics[width=0.9\linewidth]{understand.png}
+        % \includegraphics[width=0.9\linewidth]{images/understand.png}
 \end{center}
 \end{document}
