@@ -29,10 +29,10 @@
 \usepackage{marginnote}
 \renewcommand*{\marginfont}{\footnotesize}
 \usepackage{hyperref}
-\hypersetup{colorlinks=true, urlcolor=NavyBlue, bookmarksdepth=3}
+\hypersetup{colorlinks=true, urlcolor=NavyBlue, bookmarksdepth=3, citecolor=ForestGreen}
 \makeatletter\newcommand{\@minipagerestore}{\setlength{\parskip}{\medskipamount}}\makeatother
 \usepackage{titletoc}
-\titlecontents{section}[3em]{}{\sf\contentslabel{2.33em}}{}{\,\titlerule*[0.5pc]{$\cdot$}\contentspage}[\vspace{1.1ex}]
+\titlecontents{section}[3em]{}{\bf\contentslabel{2.33em}}{}{\,\titlerule*[0.5pc]{$\cdot$}\contentspage}[\vspace{1.1ex}]
 \renewcommand{\thesection}{\S\arabic{section}}
 % =============== Index ===========================
 \usepackage[nonewpage]{imakeidx}
@@ -68,7 +68,7 @@
 \postauthor{\par\HorRule}
 \newcommand{\COURSENAME}{\textcolor{black}{Abstract Algebra 2023}}
 % \newcommand{\COURSENAME}{\href{http://phyw.people.ust.hk/teaching/PHYS2022-2015/}{\textcolor{black}{Algebra 2023}}}
-\newcommand{\HTG}{\textcolor{black}{H.T. Guo}}
+\newcommand{\HTG}{\textcolor{black}{H.-T.~Guo}}
 % \newcommand{\PHYS}{\href{https://lxy.njupt.edu.cn/}{\textcolor{black}{School of Electronic Engineering}}}
 \newcommand{\PHYS}{\href{https://lxy.njupt.edu.cn/}{\textcolor{black}{School of Science}}}
 \newcommand{\NJUPT}{\href{https://www.njupt.edu.cn/}{\textcolor{black}{NJUPT}}}
@@ -209,10 +209,6 @@
     \mnewline
 }
 %----------------------------------------------------------------------------------------
-%	Basic Thm Environment
-%----------------------------------------------------------------------------------------
-
-%----------------------------------------------------------------------------------------
 %	Basic Math Notation Definition
 %----------------------------------------------------------------------------------------
 % Some commands that I am used to.
@@ -224,7 +220,8 @@
 \newcommand{\CC}{\ensuremath{\mathbb{C}}}
 \newcommand{\F}{\ensuremath{\mathbb{F}}}
 \newcommand{\A}{\ensuremath{\mathbb{A}}}
-
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
 
 % Algebra
 
@@ -447,7 +444,8 @@
   },
   colback=white,
   colframe=browna,
-  fonttitle=\bfseries,
+  % fonttitle=\bfseries,
+  fonttitle = \bfseries\sffamily,
   boxed title style={
     sharp corners,
     size=small,
@@ -462,6 +460,12 @@
 \usepackage{amsthm}
 \theoremstyle{remark}
 \newtheorem{remark}[]{\bfseries Remark}          % <- This will work
+
+\newtcbtheorem[number within=section]{Remark}{Remark}{enhanced, breakable,
+    colback = white, coltitle=black, colframe = black!10!white, colbacktitle = black!5!white,
+    attach boxed title to top left = {yshift = -2mm, xshift = 5mm},
+    boxed title style = {sharp corners},
+    fonttitle = \bfseries, separator sign = {.}, label type=remark}{re}
 %----------------------------------------------------------------------------------------
 %	Lemma
 %----------------------------------------------------------------------------------------
@@ -565,7 +569,7 @@
   },
   colback=white,
   colframe=brownb,
-  fonttitle=\bfseries,
+  fonttitle = \bfseries\sffamily,
   coltitle=white,
   boxed title style={
     sharp corners,
@@ -709,6 +713,15 @@
     #1,
 }
 % ---------------------------------------------------------------------------------------
+%    Exercise
+%---------------------------------------------------------------------------------------
+\newtcbtheorem[number within=section]{exercise}{Exercise}{enhanced, breakable,
+colback = white, coltitle=black, colframe = black!25!white, colbacktitle = black!15!white,
+attach boxed title to top left = {yshift = -2mm, xshift = 5mm},
+boxed title style = {sharp corners},
+fonttitle = \bfseries, separator sign = {.}, label type=exercise}{ex}
+% \crefname{exercise}{exercise}{exercises}
+% ---------------------------------------------------------------------------------------
 %    Proof
 %---------------------------------------------------------------------------------------
 \usepackage{amsthm}
@@ -718,6 +731,24 @@
 \newenvironment{Proof of claim}
   {\begin{proof}[\normalfont \textbf{Proof of claim}]}
   {\end{proof}}
+\newcommand\red[1]{\textcolor{red}{#1}}
+\newenvironment{Soln}{\vspace{4pt}\textbf{\\}{\color{red}\textit{Solution}}.\normalfont}{\color{red}\hfill$\blacksquare$\vspace{4pt}\par}	% https://www.allacronyms.com/solution/abbreviated
+\newenvironment{skPf}{\vspace{1ex}\textbf{\\}{\color{black}\textbf{Sketch of Proof}}.\normalfont}{\color{black}\hfill$\blacksquare$\vspace{1ex}\par}
+%----------------------------------------------------------------------------------------
+%	Basic Thm Environment
+%----------------------------------------------------------------------------------------
+\theoremstyle{definition}
+\newtheorem*{Def}{Definition}
+\newtheorem*{Prop}{Proposition}
+\newtheorem*{Lemma}{Lemma}
+\newtheorem*{Theo}{Theorem}
+\newtheorem*{Coro}{Corollary}
+\theoremstyle{remark}
+\newtheorem*{Rmk}{Remark}
+\theoremstyle{plain}
+\newtheorem{Ex}{Exercise}
+\newtheorem{Prob}{Problem}
+
 % =============== Filter unwanted warnings========================
 \usepackage{silence}
 \WarningsOff[tcolorbox]
@@ -787,6 +818,7 @@
 \end{thebibliography}
 %\pdfbookmark[1]{List of Figures \& Tables}{fig+tbl}
 \pdfbookmark[1]{List of Figures}{fig}
+
 \begingroup
 \renewcommand{\color}[1]{}
 \listoffigures
@@ -799,15 +831,10 @@
 \end{center}
 \vspace{1ex}
 \begin{quotation}
-	\textsl{An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem.}
+	\textsl{In mathematics the art of proposing a question must be held of higher value than solving it. The essence of mathematics lies in its freedom.}
 	
-\hfill ------ John Tukey
+\hfill ------ Georg Cantor
 \end{quotation}
-
-
-\Pickup\ Latest Version: \url{https://www.overleaf.com/read/qvqfvzcbvvjh}
-
-\Pickup\ Course Page: \url{https://www.math.pku.edu.cn/teachers/linw/2721s21.html}
 
 \begin{figure}[!b]
 	\centering
@@ -816,9 +843,13 @@
 	\vspace{11ex}
 \end{figure}
 
+
+\Pickup\ Latest Version: \url{https://www.overleaf.com/read/qvqfvzcbvvjh}
+
+\Pickup\ Course Page: \url{https://www.math.pku.edu.cn/teachers/linw/2721s21.html}
 \clearpage
-\pagenumbering{arabic}
-\setcounter{page}{1}
+% \pagenumbering{arabic}
+% \setcounter{page}{1}
 
 \section{Recall of Linear Algebra \sf\scriptsize (2021/3/12)}
 \section{Stochastic Convergence in Metric Spaces \& Brackets \sf\scriptsize (2021/3/12)}
@@ -1113,7 +1144,73 @@ has a non empty intersection; that is, $\cap_{n=1}^{\infty} I_{n}$ is not equal 
 \end{theorem}
 % \begin{Example}{Yet another section-based Example}{sec_example3}
 % \end{Example}
+\begin{Soln}
+\end{Soln}
+\begin{skPf}
+    
+\end{skPf}
+\begin{exercise}{}{}
+Compute $H^*_{DR}(\mathbb{R}^2-P-Q)$ where $P$ and $Q$ are two points in $\mathbb{R}^2$. Find the closed forms that represent the cohomology classes. 
+% \begin{proof}[Solution]
+\begin{Soln}
+Clearly $H^0_{DR}(\mathbb{R}^2-P-Q)=\mathbb{R}$. Note that moving $P$ and $Q$ around is an diffeomorphism, we may assume that $P=(0,0)$ and $Q=(2,0)$.\\
+For the computation of $H_{DR}^1(\mathbb{R}^2-P-Q)$, let $\gamma_1$ be the unit circle centered at the origin, $\gamma_2$ be the unit circle centered at $Q=(2,0)$, and we claim that the linear map $H_{DR}^1(\mathbb{R}^2-P-Q)\to \mathbb{R}^2:[\omega]\mapsto (\int_{\gamma_1}\omega ,\int_{\gamma_2}\omega ) $ is an isomorphism. This map is well-defined, vanishing on exact forms as 
+\[\int_\gamma \dif f = \int_a^b \dif (f\circ \gamma)= f(\gamma(b))-f(\gamma(a))\xlongequal{\gamma(a)=\gamma(b)} 0.\] 
+Also, there clearly exist forms such that $\int_{\gamma_1}\omega\neq \int_{\gamma_2}\omega$, so by a reflection along $x=1$ we see the surjectivity of the linear map. If we uses the argument principle in complex analysis then we can find easily that the closed form that represents $(1,0)\in \mathbb{R}^2$ is $\frac{1}{2\pi} \frac{xdy-ydx}{x^2+y^2}$ and its translation from $(0,0)$ to $(2,0)$ represents $(0,1)\in \mathbb{R}^2$.
+\\
+For the injectivity, given a closed $1$-form $\omega$ such that $\int_{\gamma_1}\omega =\int_{\gamma_2}\omega =0$, we claim that the integration of $\omega$ on any loop $\ell$ in $\mathbb{R}^2-P-Q$ must be zero by Stokes' theorem in basic calculus. By the Jordan curve theorem, a loop must encircle a bounded region $\Sigma$ in $\mathbb{R}^2$. If the loop does not encircle either $P$ or $Q$, then we apply Stokes' theorem to the region $\Sigma$, getting $ \int_\ell \omega=\int_\Sigma d\omega=0$. A similar argument shows that for any circle $C$ centered at $P$ we have $\int_C\omega=\int_N d\omega=0$ on considering the region $N$ between $C$ and $\gamma_1$ along with $C$ and $\gamma_1$; the same result holds for $Q$. So for any loop that encircles $P$ or $Q$ (or both of them) we take sufficiently small circles $C_P$ or $C_Q$ around $P$ or $Q$ that are disjoint from $\ell$ and apply Stokes' theorem with $\Sigma$ being the region between the circles and the loop along with the circles and the loop, obtaining that 
+\[\int_\ell\omega=\int_\Sigma d\omega- \left(\int_{C_P}\omega\right) -\left(\int_{C_Q}\omega\right)= 0,\]
+where the parameters mean that the terms in the parameters may or may not appear, depending on whether $\ell$ encircles $P$ or $Q$. Now we can define a smooth function $f$ on $\mathbb{R}^2-P-Q$ by integrate $\omega$ along a path $\gamma_x\subset \mathbb{R}^2-P-Q$ from a base-point $x_0$ to another point $x$. This $f$ is well-defined, being independent of the choice of the path $\gamma_x$ by the above result on loops. Apply the mean-value property of integration and we see that $df=\omega$ as desired.
+\b
+The computation of $H_{DR}^2(\mathbb{R}^2-P-Q)$ is exactly the explicit procedure of Mayer-Vietoris sequence: for any $2$-form $\omega$, let $\rho_1$ and $\rho_2$ be the partition of unity with respect to the covering $\{x<\frac{3}{2} \}$ and $\{x>\frac{1}{2}\}$ of $\mathbb{R}^2-P-Q $, then $\rho_1\omega$ and $\rho_2\omega$ are two $2$-forms supported in regions isomorphic to $\mathbb{R}^2-P$. Integration along the distance axis in polar coordinates gives two $1$-forms $\eta_1$ and $\eta_2$ such that $d\eta_i= \rho_i\omega$ for $i=1,2$. Therefore $d(\eta_1+\eta_2)=\omega$, concluding that $H_{DR}^2(\mathbb{R}^2-P-Q)=0$. 
+% \end{proof}
+\end{Soln}
+\end{exercise}
 
+\begin{Remark}{Exterior Differentiation on General Manifolds}{exteriordiff}
+Before we talk about the de Rham theory on $\mathbb{R}^n$, we pause here for a second to see how this $\dif $ for $\mathbb{R}^n$ passes to give a definition of $\dif$ for any manifold $M$. Given an open subset $U$ of $M$, the pullback of the inclusion $U\hookrightarrow M$ gives an isomorphism $\Lambda^k T_p^*M \cong \Lambda^k T_p^* U$ for any $p\in U$ (as a consequence of that $T_pU\cong T_p M$). Union these isomorphisms up and we obtain a smooth embedding $\Lambda^k T^*U\hookrightarrow \Lambda^k T^*M $. Now a form $\omega$ on $U$, which is a section $\omega:U\to \Lambda^k T^*U$, so post-composition by the embedding $\Lambda^k T^*U\hookrightarrow \Lambda^k T^*M $ makes $\omega: U\to \Lambda^k T^*U\hookrightarrow \Lambda^k T^*M $ a local section of $\pi: \Lambda^k T^*M \to M$. In this point of view, for any open covering $\{U_\alpha\}$ of $M$ and a family of k-forms $\{\omega_\alpha\in \Omega^k(U_\alpha)\}$ seeing as local sections $\omega_\alpha:U_\alpha\to \Lambda^k T^*M$, if the restrictions of the forms to each overlap agrees, say $\omega_\alpha \sVert_{U_\alpha\cap U_\beta}=\omega_\beta\sVert_{U_\alpha\cap U_\beta}$ for any $\alpha,\beta$ such that $U_\alpha\cap U_\beta\neq \varnothing$, then by the gluing lemma (\cref{le:gluinglemma}) they glue up to give a global section $\omega:M\to \Lambda^k T^*M$ in $\Omega^k(M)$. Therefore if we want to determine the map $\dif :\Omega^k(M)\to \Omega^{k+1}(M)$, we can determine it ``piece by piece'' and then check if they agree on overlaps.\par
+Let $M$ be covered by a family of coordinate neighborhoods $\{U_\alpha\}$ with corresponding parametrizations $\varphi_\alpha:U_\alpha\to \mathbb{R}^n$. Let $i_\alpha:U_\alpha\hookrightarrow M$ be the inclusions, the idea of the piece-wise definition of $\dif$ is displayed in the diagram below:
+\begin{center}
+    \begin{tikzcd}
+    \Omega^k(M)\arrow[d,swap,"i_\alpha^*"] \arrow[rrr, dashed] & & & \Omega^{k+1}(M)\arrow[d,"i_\alpha^*"]\\
+    \Omega^k(U_\alpha) &\Omega^k(\mathbb{R}^n)\arrow{l}{\cong}[swap]{\varphi_\alpha^*}\arrow[r,"\dif"]&\Omega^{k+1}(\mathbb{R}^n)\arrow{r}{\varphi_\alpha^*}[swap]{\cong}&\Omega^{k+1}(U_\alpha)
+    \end{tikzcd}
+\end{center}
+To express this by words, given a form $\omega\in \Omega^k(M)$, we restrict it to $U_\alpha$ for each $\alpha$ and apply the bottom line in the diagram to get a form $\varphi_\alpha^*\dif(\varphi_\alpha^*)^{-1}(\omega\sVert_{U_\alpha})\in \Omega^{k+1}(U_\alpha)$. As $\alpha$ varies, we get a family of forms $\{ \varphi_\alpha^*\dif(\varphi_\alpha^*)^{-1}(\omega\sVert_{U_\alpha})\}$ sub-coordinate to the covering $\{U_\alpha\}$. If they agree on overlaps, then they glue up to give a form $\Omega^{k+1}(M)$ and defines our map $\dif :\Omega^k(M)\to \Omega^{k+1}(M)$. The linearity of $\dif$ follows from its linearity locally in each $U_\alpha$ (since the linear structure is defined point-wisely). \par
+Now it remains only to check that $\{ \varphi_\alpha^*\dif(\varphi_\alpha^*)^{-1}(\omega\sVert_{U_\alpha})\}$ agree on overlaps. Let $U_\alpha\cap U_\beta\neq \varnothing$, we need to show that $\varphi_\alpha^*\dif(\varphi_\alpha^*)^{-1}= \varphi_\beta^*\dif(\varphi_\beta^*)^{-1}$, which is equivalent to $ (\varphi_\alpha\circ \varphi_{\beta}^{-1})^*\dif(\varphi_\alpha^*)^{-1}= \dif(\varphi_\beta^*)^{-1} $. Since $ \varphi_\alpha\circ \varphi_{\beta}^{-1}$ is a map between Euclidean spaces, $(\varphi_\alpha\circ \varphi_{\beta}^{-1})^* $ commutes with $\dif$ and thus
+\begin{equation}
+    (\varphi_\alpha\circ \varphi_{\beta}^{-1})^*\dif(\varphi_\alpha^*)^{-1}=\dif (\varphi_\alpha\circ \varphi_{\beta}^{-1})^*(\varphi_\alpha^*)^{-1}=\dif (\varphi_\beta^*)^{-1},
+\end{equation}
+as promised. The properties of $\dif$ for $\mathbb{R}^n$ also pass to general manifolds since $\dif$ is determined ``locally''.
+\begin{Proposition}{Properties of Exterior Differentiation}{}
+Let $M$ be a smooth manifold. The exterior differentiation $\dif:\Omega^k(M)\to\Omega^k(M)$ satisfies the following properties:
+\begin{enumerate}[label=(\alph*)]
+    \item $\dif$ is $\mathbb{R}$-linear.
+    \item (Antiderivation) Let $\omega\in \Omega^k(M)$ and $\eta\in \Omega^l(M)$, then
+    \begin{equation*}
+        \dif (\omega\wedge\eta)=(\dif\omega)\wedge\eta+(-1)^k\omega\wedge(\dif\eta).
+    \end{equation*}
+    \item $d^2\coloneqq d\circ d\equiv 0$.
+    \item (Naturality) $\dif $ commutes with pullbacks, i.e. given $F:M\to N$, then
+    \begin{equation*}
+        F^*\dif=\dif F^*,
+    \end{equation*}
+    whenever this composition makes sense.
+\end{enumerate}
+\end{Proposition}
+
+Note that the naturalilty above gives in particular that $F^*(\dif f) = \dif (f\circ F)$ for any $f\in C^\infty(N)$.
+
+The naturality of exterior differentiation can be translated as being a natural transform from the functor $\Omega^k$ and $\Omega^{k+1}$:
+\begin{center}
+    \begin{tikzcd}
+    \Omega^k(M)\arrow[d,swap,"F^*"]\arrow[r,"\dif"] &\Omega^{k+1}(M)\arrow[d,"F^*"]\\
+    
+    \Omega^k(N)\arrow[r,swap,"\dif"] &\Omega^{k+1}(N)
+    \end{tikzcd}
+\end{center}
+It follows that the pullback of forms gives a chain map between chain complexes $\Omega^*(M)$ and $\Omega^*(N)$. Therefore we can define a functor $\Omega^*:\Man \to K(\Vect_\mathbb{R})$ that sends a manifold $M$ to the chain complex $\Omega^*(M)$ and a map $F$ to its induced chain map between chain complexes.
+\end{Remark}
 \vspace{2.333ex}
 \begin{center}
 	\includegraphics[width=0.4\linewidth]{cut-off_rule.png}
@@ -1127,4 +1224,188 @@ has a non empty intersection; that is, $\cap_{n=1}^{\infty} I_{n}$ is not equal 
 	\includegraphics[width=0.9\linewidth]{understand.png}
         % \includegraphics[width=0.9\linewidth]{images/understand.png}
 \end{center}
+
+
+\clearpage
+\appendix
+\pdfbookmark[1]{Exams}{append:exams}
+
+\pdfbookmark[2]{Midterm}{append:midterm}
+\section*{\bf Midterm \sf\scriptsize (2021/5/5)}
+\begin{Prob}[Tail bounds for decoupled and coupled Gaussian chaos]\ 
+
+Let $\bm{\varepsilon}$ and $\bm{\varepsilon}'$ be independent $\N_{n}(\bm{0}_{n},\bm{I}_{n})$ vectors and $\bm{A} \in \R^{n \times n}$ be a symmetric matrix. 
+\begin{enumerate}[(a)]
+	\setlength{\itemsep}{0pt}
+\item Consider the quadratic form $Y = \bm{\varepsilon}^{\top}\bm{A}\bm{\varepsilon}'$. Show that there exist universal constants $c_{1},c_{2} \in (0,\infty)$ such that for any $t > 0$, \vspace{-2ex}
+\[ \P\{ \abs{Y} \geq t \} \leq c_{1} \exp\!\Big( - \frac{c_{2}t^{2}}{\norm{\bm{A}}_{\mathrm{F}}^{2}+t\normmm{\bm{A}}_{2}} \Big) . \vspace{-1ex}\] 
+\item State a condition on $\bm{A}$ for the quadratic form $Z = \bm{\varepsilon}^{\top}\bm{A}\bm{\varepsilon}$ to have mean zero. 
+\item Prove the same bound as in part (a) for $Z$, where the universal constants may be different.
+\end{enumerate}
+\normalfont Hint: All chi-square random variables are sub-Exponential.
+\end{Prob}
+
+
+\begin{Prob}[Different tail bounds for random vectors]\ 
+
+Let $\bm{X}_{i}$ be i.i.d.\ zero-mean random $d$-dimensional vectors with covariance matrix $\bm{\Sigma}$ such that $\norm{\bm{X}_{i}}_{2} \leq 1$ almost surely. Consider the random vector $\bm{Z} = \frac{1}{n}\sum_{i=1}^{n}\bm{X}_{i}$. 
+\begin{enumerate}[(a)]
+	\setlength{\itemsep}{0pt}
+\item As a union bound lover, Alice notes the fact that $\norm{\bm{Z}}_{2} \leq \sqrt{d}\norm{\bm{Z}}_{\infty}$ and uses Hoeffding's inequality and the union bound to obtain an upper bound for $\P\{ \norm{\bm{Z}}_{2} \geq t \}$. Complete her derivation.
+\item As a matrix bound lover, Bob notes the following Hoeffding's inequality that if $\bm{A}_{i}$'s are independent zero-mean symmetric random matrices satisfying the sub-Gaussian condition with parameters $\bm{V}_{i}$, then for any $t > 0$, \vspace{-2ex}
+\[ \P\bigg\{ \normmmBig{\frac{1}{n}\sum_{i=1}^{n}\bm{A}_{i}}_{2} \geq t \bigg\} \leq 2 \rank{\bm{V}} \exp\!\Big(-\frac{nt^{2}}{2\sigma^{2}}\Big) , \]
+where $\bm{V} = \sum_{i=1}^{n}\bm{V}_{i}$ and $\sigma^{2} = n^{-1}\normmm{\bm{V}}_{2}$, so he constructs suitable matrices $\bm{A}_{i}$ from $\bm{X}_{i}$ to obtain an upper bound for $\P\{ \norm{\bm{Z}}_{2} \geq t \}$. Complete his derivation and compare with Alice's result. 
+\item As a dimension-free bound lover, Charlie follows Bob's construction and finds a sharper tail bound that involves a prefactor of $\tr{\bm{V}}/\normmm{\bm{V}}_{2}$. Determine the prefactor and show that it is indeed dimension-free. 
+\end{enumerate}
+\end{Prob}
+
+
+\begin{Prob}
+Suppose that $(\bm{X}_{1},Y_{1}),\dots,(\bm{X}_{n},Y_{n})$ are i.i.d.\ from the regression model $Y_{i} = f_{\bm{\theta}}(\bm{X}_{i}) + \eps_{i}$, where $f_{\bm{\theta}}$ is the regression function indexed by an unknown parameter $\bm{\theta} \in \R^{k}$ and $\eps_{i}$ is independent of $\bm{X}_{i}$. Consider the least absolute deviation estimator 
+$ \widehat{\bm{\theta}} = \argmin_{\bm{\theta}} \sum_{i=1}^{n} \abs{Y_{i}-f_{\bm{\theta}}(\bm{X}_{i})} . $
+\begin{enumerate}[(a)]
+	\setlength{\itemsep}{0pt}
+\item Derive the asymptotic distribution of $\widehat{\bm{\theta}}$ in the linear case $f_{\bm{\theta}}(\bm{x}) = \bm{\theta}^{\top}\bm{x}$. State any needed assumptions. 
+\item Redo part (a) for general $f_{\bm{\theta}}$. 
+\end{enumerate}
+\end{Prob}
+
+
+\begin{Prob}
+Let $X,X_{1},X_{2},\dots,X_{n}$ be i.i.d.\ from a distribution $P$ on $\R$. Suppose that $P$ has density $p$ with respect to the Lebesgue measure such that $\norm{p}_{L^\infty} < \infty$. Let $K : \R \to \R$ be any Lipschitz continuous function such that $\norm{K}_{L^\infty} \leq K_{\max} < \infty$ and $\int_{\R} K(t) \,\d t = 1$. Consider the kernel density estimator \vspace{-1ex}
+\[ \hat{p}_{n,h}(x) = \frac{1}{nh} \sum_{i=1}^{n} K\Big(\frac{x-X_{i}}{h}\Big) , \quad x \in \R , \vspace{-2ex}\]
+where $h > 0$ is a bandwidth. 
+\begin{enumerate}[(a)]
+	\setlength{\itemsep}{0pt}
+\item Let $\mathcal{F}$ be a class of measurable functions. Prove that for any $t>0$, \vspace{-2ex}
+\[ \P\bigg\{ \max_{1 \leq j \leq n} \sup_{f\in\mathcal{F}} \absBig{\sum_{i=1}^{j}\big(f(X_{i})-Pf\big)} > t \bigg\} \leq 9 \, \P\bigg\{ \sup_{f\in\mathcal{F}} \absBig{\sum_{i=1}^{n}\big(f(X_{i})-Pf\big)} > \frac{t}{30} \bigg\} . \vspace{-2ex}\]
+\item Suppose that $\mathcal{F}$ has a constant  envelope $F$ and there exist constants $A > \e^{2}$ and $V \geq 2$ such that $N(\eps F, \mathcal{F}, L^{2}(Q)) \leq (A/\eps)^{V}$ for any finitely supported probability measure $Q$ and $\eps \in (0,1)$. Prove that \vspace{-1ex}
+\[ \E\bigg[ \sup_{f\in\mathcal{F}} \absBig{\sum_{i=1}^{n}\big(f(X_{i})-Pf\big)} \bigg] \leq L \max\biggl\{ \sigma\sqrt{Vn\log\Big(\frac{AF}{\sigma}\Big)} , VF\log\Big(\frac{AF}{\sigma}\Big) \biggr\} , \vspace{-1ex}\]
+where $L \in (0,\infty)$ is a universal constant and $\sigma^{2} = \sup_{f\in\mathcal{F}} P(f-Pf)^{2}$. 
+\item Suppose that $h_{n} \to 0$, $nh_{n}/\abs{\log h_{n}} \to \infty$, $\abs{\log h_{n}} / \log\log n \to 0$, and $h_{n} \leq c \, h_{2n}$ for some $c > 0$. Prove that \vspace{-1ex}
+\[ \limsup_{n\to\infty} \sqrt{\frac{nh_{n}}{\abs{\log h_{n}}}} \norm{\hat{p}_{n,h_{n}}-p_{h_{n}}}_{L^\infty} = C \]
+almost surely for some constant $C < \infty$, where $p_{h}(x) = \frac{1}{h}\E_{P}[K(\frac{x-X}{h})]$. 
+\end{enumerate}
+\normalfont \textbf{Hint}: Functional concentration inequalities may be applied.
+\end{Prob}
+
+\clearpage
+
+\pdfbookmark[2]{Final}{append:final}
+\section*{\bf Final \sf\scriptsize (2021/6/27)}
+\setcounter{Prob}{0}
+\begin{Prob}
+Suppose you are preparing a research paper. Write an introduction for your paper to summarize the state-of-the-art developments on the topic, comment on the strengths and weaknesses of the existing methods, and motivate your research. You need not describe your research.
+\end{Prob}
+\begin{Prob}
+Suppose you are preparing a two-hour lecture for our course's next offering. Write notes for your lecture to cover the most essential material for understanding the topic. Make sure to include some instructive examples and tailor your material to the two-hour limit.
+\end{Prob}
+
+{\large List of topics and sample references:}
+\begin{enumerate}
+\item Debiased Lasso: inference for sparse regression
+\item The knockoff filter and SLOPE: false discovery rate control in regression 
+\item Robust Lasso
+\item Fused Lasso or total variation denoising
+\item Minimax lower bounds for matrix estimation
+\item New developments in matrix completion
+\item Covariance estimation with latent variables
+\item Sparse directed acyclic graphs
+\item Prediction bounds for deep neural networks
+\item Constrained minimax lower bounds
+\end{enumerate}
+One would go through the sketchy proof of Theorem 19.5 in \cite{vdVaart1998asymptotic} or Section 8.4 of \cite{Kosorok2008Introduction}.
+
+Besides $\mathcal{F}_{]}$, we may consider the parametric class $\mathcal{F}_{\Theta} = \{ f_{\theta} : \theta \in \Theta \subset \R^{d} \}$. Suppose that there exists a measurable function $m \in L^{r}(P)$ such that $\abs{f_{\theta_{1}}(x)-f_{\theta_{2}}(x)} \leq m(x) \norm{\theta_{1}-\theta_{2}}$. The brackets of the type $[f_{\theta} - \eps m, f_{\theta} + \eps m]$ have $L^{r}(P)$-size $2 \eps \norm{m}_{L^{r}(P)}$. If $\theta$ ranges over a grid of meshwidth $\eps$, then the brackets cover $\mathcal{F}_{\Theta}$, because of the
+Lipschitz condition. Thus, we need as many brackets as we need balls of radius $\eps/2$ to cover $\Theta$. Therefore, there exists a constant $K$, depending on $\Theta$ and $d$ only, such that 
+\[ N_{[]}(\eps\norm{m}_{L^{r}(P)}, \mathcal{F}_{\Theta}, L^{r}(P)) \leq K (\operatorname{diam}\Theta/\eps)^{d} , \quad \forall \eps \in (0, \operatorname{diam}\Theta) . \]
+For more examples (e.g., pointwise compact class, Sobolev class, bounded-variation class), see Section 19.2 of \cite{vdVaart1998asymptotic} and Chapter 2.7 of \cite{vdVaart-Wellner-1996-Weak}.
+
+The \textbf{covering number} $N(\eps,\mathcal{F},L^{r}(Q))$ is defined as the minimum number of $L^{r}(Q)$-balls of radius $\eps$ to cover $\mathcal{F}$. Given an envelope function $F$ such that $\sup_{f\in\mathcal{F}} \abs{f(x)} \leq F(x) < \infty \ (\forall x)$, the \textbf{uniform covering number} is $\sup_{Q} N(\eps\norm{F}_{L^{r}(Q)}, \mathcal{F}, L^{r}(Q))$ where the supremum is taken over all finitely supported probability measures $Q$ such that $\norm{F}_{L^{r}(Q)} > 0$.
+The \textbf{uniform entropy integral} is defined to be 
+\[ J(\delta,\mathcal{F},L^{2}) = \int_{0}^{\delta} \sqrt{\log \sup\nolimits_{Q} N(\eps\norm{F}_{L^{2}(Q)}, \mathcal{F}, L^{2}(Q))} \,\d \eps , \]
+where $\log \sup_{Q} N(\eps\norm{F}_{L^{2}(Q)}, \mathcal{F}, L^{2}(Q))$ is called the \textbf{uniform entropy}.
+
+\begin{Theo}[19.13 in \cite{vdVaart1998asymptotic}; 8.14 in \cite{Kosorok2008Introduction}]
+A $P$-measurable class $\mathcal{F}$ of functions is $P$-Glivenko-Cantelli if $P^{*}F < \infty$ and $\sup_{Q} N(\eps\norm{F}_{L^{1}(Q)},\mathcal{F},L^{1}(Q)) < \infty \ (\forall \eps > 0)$.
+\end{Theo}
+
+\begin{Theo}[19.14 in \cite{vdVaart1998asymptotic}; 8.19 in \cite{Kosorok2008Introduction}]
+A $P$-measurable class $\mathcal{F}$ of functions is $P$-Donsker if $P^{*}F^{2} < \infty$ and $J(1,\mathcal{F},L^{2}) < \infty$.
+\end{Theo}
+
+Here $\mathcal{F}$ is said to be $P$-measurable if $(x_{1},\dots,x_{n}) \mapsto \sup_{f\in\mathcal{F}} \abs{\sum_{i=1}^{n}e_{i}f(x_{i})}$ is measurable for every constant vector $(e_{1},\dots,e_{n}) \in \R^{n}$. 
+The so called $P$-measurability of $\mathcal{F}$ is used to deduce the measurability of $\norm{P_{n}^{\circ}}_{\mathcal{F}} = \sup_{f\in\mathcal{F}} \abs{P_{n}^{\circ}f}$, where 
+$ P_{n}^{\circ} f = \frac{1}{n} \sum_{i=1}^{n} \eps_{i} f(X_{i}) $
+for i.i.d.\ Rademacher random variables $\eps_{i}$ such that $\P\{ \eps_{i} = 1 \} = \P\{ \eps_{i} = -1 \} = 1/2$ and $\eps_{i}$'s are independent of $X_{i}$'s.
+
+\begin{Lemma}[Exercise 8.5.6 of \cite{Kosorok2008Introduction}]
+A class $\mathcal{F}$ of measurable functions is $P$-measurable for all $P$, if $\mathcal{F}$ is \emph{pointwise measurable} in the sense: there exists a countable subset $\mathcal{G} \subset \mathcal{F}$ such that for every $f \in \mathcal{F}$, there exists a sequence $g_{m} \in \mathcal{G}$ with $g_{m} \to f$ pointwise as $m \to \infty$.
+\end{Lemma}
+
+
+A collection $\mathcal{C}$ of subsets of $\mathcal{X}$ is said to \textbf{pick out} a subset $A \subset \{x_{1},\dots,x_{n}\} \subset \mathcal{X}$ if $A = \{x_{1},\dots,x_{n}\} \cap C$ for some $C \in \mathcal{C}$. If all $2^{n}$ subsets of $\{x_{1},\dots,x_{n}\}$ can be picked out by $\mathcal{C}$, then $\mathcal{C}$ is said to \textbf{shatter} $\{x_{1},\dots,x_{n}\}$. The \textbf{Vapnik-Chervonenkis (VC) index} $V(\mathcal{C})$ of $\mathcal{C}$ is defined as the smallest $n$ such that no set of size $n$ is shattered by $\mathcal{C}$. A \textbf{VC class} is a collection $\mathcal{C}$ with $V(\mathcal{C}) < \infty$.
+A class $\mathcal{F}$ of functions $f : \mathcal{X} \to \R$ is called \textbf{VC} if all the \textbf{subgraphs}, $\{ (x,t) : t<f(x) \}, \ f \in \mathcal{F}$, form a VC class of sets in $\mathcal{X} \times \R$.
+\begin{Rmk}
+A collection $\mathcal{C}$ of sets is a VC class if and only if $\{\1_{C}:C\in\mathcal{C}\}$ is VC.
+\end{Rmk}
+
+\begin{Lemma}[Vapnik and Chervonenkis (\href{https://doi.org/10.1007/978-3-319-21852-6_3}{1971}); Sauer (\href{https://doi.org/10.1016/0097-3165(72)90019-2}{1972}); Shelah (\href{https://projecteuclid.org/journals/pacific-journal-of-mathematics/volume-41/issue-1/A-combinatorial-problem-stability-and-order-for-models-and-theories/pjm/1102968432.full}{1972}); Prop.\ 4.18 in \cite{Wainwright2019high}]
+Let $\mathcal{C}$ be a set class. For any $n \geq V(\mathcal{C})$, we have 
+$\#\{ C\cap\{x_{1},\dots,x_{n}\} : C\in\mathcal{C} \} \leq \sum_{k=0}^{V(\mathcal{C})-1} \binom{n}{k} \leq (\frac{\e n}{V(\mathcal{C})-1})^{{V(\mathcal{C})-1}}$.
+\begin{Rmk}
+Only a polynomial number $O(n^{{V(\mathcal{C})-1}}) \ll 2^{n}-1$ of subsets can be picked out.
+\end{Rmk}
+\end{Lema}
+
+\begin{Lemma}[19.15 in \cite{vdVaart1998asymptotic}]
+There exists a universal constant $K \in (0,\infty)$ such that for any function class $\mathcal{F}$, any $r \geq 1$ and $\eps \in (0,1)$, we have 
+$ \sup_{Q} N(\eps\norm{F}_{L^{r}(Q)},\mathcal{F},L^{r}(Q)) \leq K V(\mathcal{F}) (16\e)^{V(\mathcal{F})} (1/\eps)^{r(V(\mathcal{F})-1)} $. \footnote{For a proof, see Section 2.6.2 of \cite{vdVaart-Wellner-1996-Weak}.}
+\begin{Rmk}
+VC classes have covering numbers bounded by a polynomial in $1/\eps$, and thus are relatively small.
+\end{Rmk}
+\end{Lemma}
+
+
+\section{\bf VC Cont'd \& Preservation Results \& Random Functions \sf\scriptsize (2021/3/24)}
+The notions of shattering and VC index are illustrated with some examples:
+\begin{itemize}
+	\item (19.16 in \cite{vdVaart1998asymptotic}; 4.17 in \cite{Wainwright2019high})
+The collection $\mathcal{C}_{]}$ of cells $(-\infty,t]$ in $\R$ is a VC class with index $V(\mathcal{C}_{]}) = 2$. 
+	\item (19.17 in \cite{vdVaart1998asymptotic}; 9.6 in \cite{Kosorok2008Introduction})
+The set $\mathcal{F}_{k} = \vspan{f_{1}, \dots, f_{k}}$ of linear combinations $\sum_{i=1}^{k} \lambda_{i} f_{i} \ (\lambda_{i}\in\R)$ of given functions $f_{1}, \dots, f_{k}$ on $\mathcal{X}$ is a VC class with index $V(\mathcal{F}_{k}) \leq k + 2$. 
+\end{itemize}
+See also Exercises 4.12--4.17 of \cite{Wainwright2019high}.
+
+A number of operations allow to build new classes out of known classes, preserving some property of interest. The \textbf{preservation results} demonstrate the stability of corresponding properties.
+
+\begin{Lemma}[9.7 in \cite{Kosorok2008Introduction}]
+Let $\mathcal{C}$ and $\mathcal{D}$ be VC classes of sets in $\mathcal{X}$, $\mathcal{E}$ be a VC class of sets in $\mathcal{W}$, and $\phi : \mathcal{X} \to \mathcal{Y}$ and $\psi : \mathcal{Z} \to \mathcal{X}$ be fixed functions. Then
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item $\mathcal{C}^{\complement} = \{ C^{\complement} : C \in \mathcal{C} \}$ is VC with $V(\mathcal{C}^{\complement}) = V(\mathcal{C})$;
+\item $\mathcal{C} \sqcap \mathcal{D} = \{ C \cap D : C \in \mathcal{C}, D \in \mathcal{D} \}$ is VC with $V(\mathcal{C} \sqcap \mathcal{D}) \leq V(\mathcal{C}) + V(\mathcal{D}) - 1$;
+\item $\mathcal{C} \sqcup \mathcal{D} = \{ C \cup D : C \in \mathcal{C}, D \in \mathcal{D} \}$ is VC with $V(\mathcal{C} \sqcup \mathcal{D}) \leq V(\mathcal{C}) + V(\mathcal{D}) - 1$;
+\item $\mathcal{D} \times \mathcal{E} = \{ D \times E : D \in \mathcal{D}, E \in \mathcal{E} \}$ is VC in $\mathcal{X} \times \mathcal{W}$ with $V(\mathcal{D} \times \mathcal{E}) \leq V(\mathcal{D}) + V(\mathcal{E}) - 1$;
+\item $\phi(\mathcal{C}) = \{ \phi(C) : C \in \mathcal{C} \}$ is VC in $\mathcal{Y}$ with $V(\phi(\mathcal{C})) = V(\mathcal{C})$ if $\phi$ is one-to-one;
+\item $\psi^{-1}(\mathcal{C}) = \{ \psi^{-1}(C) : C \in \mathcal{C} \}$ is VC in $\mathcal{Z}$ with $V(\psi^{-1}(\mathcal{C})) \leq V(\mathcal{C})$.
+\end{itemize}
+\end{Lemma}
+
+\begin{Lemma}[9.9 in \cite{Kosorok2008Introduction}]
+Let $\mathcal{F}$ and $\mathcal{G}$ be VC classes of functions on a set $\mathcal{X}$, with respective VC indices induced by their subgraphs, and $h : \mathcal{X} \to \R$, $\phi : \R \to \R$, and
+$\psi : \mathcal{Z} \to \mathcal{X}$ be fixed functions. Then
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item $\mathcal{F} \wedge \mathcal{G} = \{ f \wedge g : f \in \mathcal{F}, g \in \mathcal{G} \}$ is VC with $V(\mathcal{F} \wedge \mathcal{G}) \leq V(\mathcal{F}) + V(\mathcal{G}) - 1$;
+\item $\mathcal{F} \vee \mathcal{G} = \{ f \vee g : f \in \mathcal{F}, g \in \mathcal{G} \}$ is VC with $V(\mathcal{F} \vee \mathcal{G}) \leq V(\mathcal{F}) + V(\mathcal{G}) - 1$;
+\item $\{\mathcal{F} > 0\} = \{ \{f > 0\} : f \in \mathcal{F} \}$ is a VC class of sets with $V(\{\mathcal{F} > 0\}) = V(\mathcal{F})$;
+\item $-\mathcal{F} = \{-f:f\in\mathcal{F}\}$ is VC with $V(-\mathcal{F}) = V(\mathcal{F})$;
+\item $\mathcal{F} + h = \{ f + h : f \in \mathcal{F} \}$ is VC with $V(\mathcal{F}+h) = V(\mathcal{F}$);
+\item $\mathcal{F} \cdot h = \{ fh : f \in \mathcal{F} \}$ is VC with $V(\mathcal{F} \cdot h) \leq 2V(\mathcal{F}) - 1$;
+\item $\mathcal{F} \circ \psi = \{ f\circ\psi : f \in \mathcal{F} \}$ is VC with $V(\mathcal{F} \circ \psi) \leq V(\mathcal{F})$;
+\item $\phi \circ \mathcal{F} = \{ \phi \circ f : f \in \mathcal{F} \}$ is VC with $V(\phi\circ\mathcal{F}) \leq V(\mathcal{F})$ for monotone $\phi$.
+\end{itemize}
+\end{Lemma}
 \end{document}
+
